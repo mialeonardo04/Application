@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Mokas</string>
+    <string name="drawer_opened">Opened</string>
+    <string name="drawer_Closed">Closed</string>
+    <string name="scans_start">Scanning..</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
