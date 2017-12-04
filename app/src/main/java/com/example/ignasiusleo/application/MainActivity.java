@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.example.ignasiusleo.application.adapter.SlidingMenuAdapter;
 import com.example.ignasiusleo.application.dialog.CustomDialogClass;
+import com.example.ignasiusleo.application.fragment.FragmentAbout;
 import com.example.ignasiusleo.application.fragment.FragmentFive;
 import com.example.ignasiusleo.application.fragment.FragmentOne;
 import com.example.ignasiusleo.application.fragment.FragmentThree;
@@ -120,10 +121,9 @@ public class MainActivity extends ActionBarActivity {
             case R.id.menuItem2:
                 methodKeluar();
                 return true;
-            /*case R.id.menuItem3:
-                Intent intent = new Intent(MainActivity.this, MessageFragment.class);
-                startActivity(intent);
-                return true;*/
+            case R.id.menuItem3:
+                pindahFragment(4);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -162,6 +162,11 @@ public class MainActivity extends ActionBarActivity {
                 fragment = new FragmentFive();
                 TAG = null;
                 n =3;
+                break;
+            case 4:
+                fragment = new FragmentAbout();
+                TAG = null;
+                n = 4;
                 break;
             default:
                 fragment = new FragmentOne();
