@@ -28,5 +28,4 @@ public class FragmentAbout extends Fragment {
 
         return v;
     }
-
 }

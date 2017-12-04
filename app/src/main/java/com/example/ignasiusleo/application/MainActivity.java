@@ -120,6 +120,10 @@ public class MainActivity extends ActionBarActivity {
             case R.id.menuItem2:
                 methodKeluar();
                 return true;
+            /*case R.id.menuItem3:
+                Intent intent = new Intent(MainActivity.this, MessageFragment.class);
+                startActivity(intent);
+                return true;*/
             default:
                 return super.onOptionsItemSelected(item);
         }
