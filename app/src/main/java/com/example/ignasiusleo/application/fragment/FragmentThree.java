@@ -3,11 +3,13 @@ package com.example.ignasiusleo.application.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ignasiusleo.application.R;
 
@@ -17,7 +19,7 @@ import com.example.ignasiusleo.application.R;
 public class FragmentThree extends Fragment {
 
     private TextView id;
-
+    private Button add;
     public FragmentThree() {
         // Required empty public constructor
     }
@@ -28,17 +30,18 @@ public class FragmentThree extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_three, container, false);
-        Bundle bundle = getArguments();
-        if (bundle != null ){
-
-            String txtId = bundle.getString("scanResult");
-
-            id = v.findViewById(R.id.id3);
-            id.setText(txtId);
-        } else{
-            /*Toast.makeText(getContext(),"No Message",Toast.LENGTH_SHORT).show()*/;
-        }
+        add = v.findViewById(R.id.addNewItem);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragmentAddBarang = new FragmentAddStuff();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_content, fragmentAddBarang);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
         return v;
     }
-
 }

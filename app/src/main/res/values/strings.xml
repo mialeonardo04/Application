@@ -3,6 +3,22 @@
     <string name="drawer_opened">Opened</string>
     <string name="drawer_Closed">Closed</string>
     <string name="scans_start">Scanning..</string>
+    <string name="getBarang">http://webptik15.hol.es/mokas/getBarang.php</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="month">
+        <item>--Pilih Periode Laporan(bulan)--</item>
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
 </resources>

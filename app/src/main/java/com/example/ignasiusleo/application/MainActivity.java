@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 import com.example.ignasiusleo.application.adapter.SlidingMenuAdapter;
 import com.example.ignasiusleo.application.dialog.CustomDialogClass;
 import com.example.ignasiusleo.application.fragment.FragmentFive;
-import com.example.ignasiusleo.application.fragment.FragmentFour;
 import com.example.ignasiusleo.application.fragment.FragmentOne;
 import com.example.ignasiusleo.application.fragment.FragmentThree;
 import com.example.ignasiusleo.application.fragment.FragmentTwo;
@@ -53,7 +52,7 @@ public class MainActivity extends ActionBarActivity {
         listSlide.add(new ItemSlideMenu(R.mipmap.ic_launcher,"    Beranda"));
         listSlide.add(new ItemSlideMenu(R.drawable.button_transaction_selector,"    Transaksi"));
         listSlide.add(new ItemSlideMenu(R.drawable.button_inventory_selector,"    Data Barang"));
-        listSlide.add(new ItemSlideMenu(R.drawable.button_pegawai_selector,"    Pegawai"));
+        /*listSlide.add(new ItemSlideMenu(R.drawable.button_pegawai_selector,"    Pegawai"));*/
         listSlide.add(new ItemSlideMenu(R.drawable.button_report_selector,"    Laporan"));
 
         adapter = new SlidingMenuAdapter(this,listSlide);
@@ -156,14 +155,9 @@ public class MainActivity extends ActionBarActivity {
                 n=2;
                 break;
             case 3:
-                fragment = new FragmentFour();
-                TAG = null;
-                n =3;
-                break;
-            case 4:
                 fragment = new FragmentFive();
                 TAG = null;
-                n =4;
+                n =3;
                 break;
             default:
                 fragment = new FragmentOne();
@@ -198,10 +192,6 @@ public class MainActivity extends ActionBarActivity {
                 setTitle(listSlide.get(0).getTitle());
                 break;
             case 3:
-                pindahFragment(0);
-                setTitle(listSlide.get(0).getTitle());
-                break;
-            case 4:
                 pindahFragment(0);
                 setTitle(listSlide.get(0).getTitle());
                 break;

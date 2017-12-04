@@ -27,7 +27,7 @@ public class FragmentOne extends Fragment {
         View v = inflater.inflate(R.layout.fragment_one, container, false);
         ImageButton transaksi = v.findViewById(R.id.transaction);
         ImageButton barang = v.findViewById(R.id.inventory);
-        ImageButton pegawai = v.findViewById(R.id.pegawai);
+        /*ImageButton pegawai = v.findViewById(R.id.pegawai);*/
         ImageButton laporan = v.findViewById(R.id.report);
 
         transaksi.setOnClickListener(new View.OnClickListener() {
@@ -56,18 +56,6 @@ public class FragmentOne extends Fragment {
             }
         });
 
-        pegawai.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                FragmentFour fragmentFour = new FragmentFour();
-
-                fragmentTransaction.replace(R.id.main_content, fragmentFour);
-                fragmentTransaction.commit();
-            }
-        });
 
         laporan.setOnClickListener(new View.OnClickListener() {
             @Override
