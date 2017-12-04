@@ -123,6 +123,7 @@ public class MainActivity extends ActionBarActivity {
                 return true;
             case R.id.menuItem3:
                 pindahFragment(4);
+                setTitle("About");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -201,6 +202,10 @@ public class MainActivity extends ActionBarActivity {
                 setTitle(listSlide.get(0).getTitle());
                 break;
             case 3:
+                pindahFragment(0);
+                setTitle(listSlide.get(0).getTitle());
+                break;
+            case 4:
                 pindahFragment(0);
                 setTitle(listSlide.get(0).getTitle());
                 break;
