@@ -58,8 +58,9 @@ public class FragmentThree extends Fragment {
             }
         });
 
-
+        dbCenter = new DataHelper(getActivity());
         fragmentThree = this;
+        RefreshList();
         return v;
     }
 
@@ -87,14 +88,45 @@ public class FragmentThree extends Fragment {
                 builder.setItems(dialogItem, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int item) {
+                        Bundle bundle = new Bundle();
                         switch (item) {
                             case 0:
+                                /*Intent i = new Intent(getContext(), DetailStockActivity.class);
+                                i.putExtra("nama",selection);*/
+                                Fragment detail = new FragmentDetailStock();
+                                //Bundle bundle1 = new Bundle();
+                                bundle.putString("id_stock", selection);
 
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.main_content, detail);
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+                                break;
+                            case 1:
+                                Fragment edit = new FragmentEditStock();
+                                //Bundle bundle2 = new Bundle();
+                                bundle.putString("id_stock", selection);
+
+                                FragmentManager fragmentManager2 = getActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+                                fragmentTransaction2.replace(R.id.main_content, edit);
+                                fragmentTransaction2.addToBackStack(null);
+                                fragmentTransaction2.commit();
+                                break;
+                            case 2:
+                                SQLiteDatabase database = dbCenter.getWritableDatabase();
+                                database.execSQL("DELETE FROM stock where id_stock ='" + selection + "';");
+                                RefreshList();
+                                break;
                         }
                     }
                 });
+                builder.create().show();
             }
         });
-
+        ((ArrayAdapter) ListView01.getAdapter()).notifyDataSetInvalidated();
+        //ListView01.getAdapter().notifyAll();
     }
+
 }
