@@ -24,7 +24,13 @@ public class FragmentDetailStock extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail_stock, container, false);
+        View v = inflater.inflate(R.layout.fragment_detail_stock, container, false);
+        Bundle bundle = new Bundle();
+        if (bundle != null) {
+            String myData = getArguments().getString("id_stock");
+        }
+        //get data per stock
+        return v;
     }
 
 }

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +32,8 @@ public class FragmentAddStock extends Fragment {
     TextView txtIdStock;
     DataHelper dbHelper;
     Button save, cancel;
-    EditText id_barang, tgl_datang, tgl_expired;
+    Spinner id_barang;
+    EditText tgl_datang, tgl_expired;
     String defaultIdBarang = null;
 
 
@@ -69,7 +71,7 @@ public class FragmentAddStock extends Fragment {
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 String sqlInsertStock = "insert into stock(id_stock, id_barang, tgl_datang, tgl_kadaluarsa) values('" +
                         txtIdStock.getText().toString() + "','" +
-                        id_barang.getText().toString() + "','" +
+                        id_barang.getAdapter().toString() + "','" +
                         tgl_datang.getText().toString() + "','" +
                         tgl_expired.getText().toString() + "')";
                 db.execSQL(sqlInsertStock);

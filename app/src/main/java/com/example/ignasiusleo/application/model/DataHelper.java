@@ -19,27 +19,27 @@ public class DataHelper extends SQLiteOpenHelper {
     private static final String TABEL_TRANSAKSI = "transaksi";
 
     private static final String CREATE_TABEL_BARANG = "CREATE TABLE " + TABEL_BARANG + " (" +
-            "id_barang VARCHAR (100) PRIMARY KEY AUTOINCREMENT, " +
+            "id_barang VARCHAR (100) PRIMARY KEY, " +
             "nama_barang VARCHAR (100), " +
             "jumlah INTEGER, " +
             "harga_barang INTEGER, " +
             "keterangan VARCHAR (100)" +
             ");";
     private static final String CREATE_TABEL_STOCK = "CREATE TABLE " + TABEL_STOCK + " (" +
-            "id_stock VARCHAR (100) PRIMARY KEY NULL, " +
-            "id_barang VARCHAR (100) PRIMARY KEY NULL, " +
+            "id_stock VARCHAR (100) PRIMARY KEY, " +
+            "id_barang VARCHAR (100), " +
             "tgl_datang VARCHAR (100), " +
-            "tgl_kadaluarsa VARCHAR (100), " +
+            "tgl_kadaluarsa VARCHAR (100)" +
             ");";
     private static final String CREATE_TABEL_PENJUALAN = "CREATE TABLE " + TABEL_PENJUALAN + " (" +
             "id_transaksi INTEGER NULL, " +
             "id_barang VARCHAR (100) NULL, " +
             "jumlah INTEGER, " +
-            "tgl_kadaluarsa VARCHAR (100), " +
+            "tgl_kadaluarsa VARCHAR (100) " +
             ");";
     private static final String CREATE_TABEL_TRANSAKSI = "CREATE TABLE " + TABEL_TRANSAKSI + " (" +
-            "id_transaksi INTEGER PRIMARY KEY AUTOINCREMENT NULL, " +
-            "jumlah INTEGER, " +
+            "id_transaksi INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+            "jumlah INTEGER " +
             ");";
     public DataHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
