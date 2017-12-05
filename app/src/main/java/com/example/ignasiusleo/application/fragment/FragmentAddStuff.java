@@ -31,7 +31,9 @@ public class FragmentAddStuff extends Fragment {
     TextView txtId;
     DataHelper dbHelper;
     Button save, cancel;
-    EditText namaBrg, hargaBrg, tgl_masuk, tgl_expired, jumlah_brg, ket;
+    EditText namaBrg, hargaBrg, tgl_datang, tgl_expired, jumlah_brg, ket;
+    String defaultIdBarang = null;
+
 
     public FragmentAddStuff() {
         // Required empty public constructor
@@ -53,19 +55,31 @@ public class FragmentAddStuff extends Fragment {
                 startActivityForResult(capture, 0);
             }
         });
+
         dbHelper = new DataHelper(getActivity());
         namaBrg = v.findViewById(R.id.nama);
         hargaBrg = v.findViewById(R.id.harga);
-        tgl_masuk = v.findViewById(R.id.tgl_masuk);
+        tgl_datang = v.findViewById(R.id.tgl_masuk);
         tgl_expired = v.findViewById(R.id.tgl_expired);
         jumlah_brg = v.findViewById(R.id.jumlah);
+        ket = v.findViewById(R.id.et);
         save = v.findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
-                String sqlInsertBarang = "insert into barang(";
-                String sqlInsertStock = "";
+                //SQLiteDatabase dbRead = dbHelper.getReadableDatabase();
+                String sqlInsertBarang = "insert into barang(id_barang, nama_barang, jumlah, harga_barang, keterangan) values('" +
+                        defaultIdBarang + "','" +
+                        namaBrg.getText().toString() + "','" +
+                        jumlah_brg.getText().toString() + "','" +
+                        hargaBrg.getText().toString() + "','" +
+                        ket.getText().toString() + "')";
+                //cursor = dbRead.rawQuery("SELECT ",null);
+                String sqlInsertStock = "insert into stock(id_stock, id_barang, tgl_datang, tgl_kadaluarsa) values('" +
+                        txtId.getText().toString() + "','','" +
+                        hargaBrg.getText().toString() + "','" +
+                        ket.getText().toString() + "')";
                 db.execSQL(sqlInsertBarang);
             }
         });

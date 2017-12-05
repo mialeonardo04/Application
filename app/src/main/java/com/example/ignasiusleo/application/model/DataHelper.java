@@ -18,27 +18,44 @@ public class DataHelper extends SQLiteOpenHelper {
     private static final String TABEL_PENJUALAN = "penjualan";
     private static final String TABEL_TRANSAKSI = "transaksi";
 
+    private static final String CREATE_TABEL_BARANG = "CREATE TABLE " + TABEL_BARANG + " (" +
+            "id_barang INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "nama_barang VARCHAR (100), " +
+            "jumlah INTEGER, " +
+            "harga_barang INTEGER, " +
+            "keterangan TEXT" +
+            ");";
+    private static final String CREATE_TABEL_STOCK = "CREATE TABLE " + TABEL_STOCK + " (" +
+            "id_stock TEXT PRIMARY KEY NULL, " +
+            "id_barang INTEGER PRIMARY KEY NULL, " +
+            "tgl_datang TEXT, " +
+            "tgl_kadaluarsa TEXT, " +
+            ");";
+    private static final String CREATE_TABEL_PENJUALAN = "CREATE TABLE " + TABEL_PENJUALAN + " (" +
+            "id_transaksi INTEGER NULL, " +
+            "id_barang INTEGER NULL, " +
+            "jumlah INTEGER, " +
+            "tgl_kadaluarsa TEXT, " +
+            ");";
+    private static final String CREATE_TABEL_TRANSAKSI = "CREATE TABLE " + TABEL_TRANSAKSI + " (" +
+            "id_transaksi INTEGER PRIMARY KEY AUTOINCREMENT NULL, " +
+            "jumlah INTEGER, " +
+            ");";
     public DataHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sqlBarang = "create table " + TABEL_BARANG + "(id_barang INTEGER PRIMARY KEY NOT NULL,nama_barang text null,jumlah INTEGER not null, harga_barang INTEGER null, keterangan text null);";
-        String sqlStock = "create table " + TABEL_STOCK + "(id_stock text PRIMARY KEY NOT NULL,id_barang INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, tgl_datang text null, tgl_kadaluarsa text null);";
-        String sqlPenjualan = "create table " + TABEL_PENJUALAN + "(id_transaksi INTEGER not null,id_barang INTEGER not null, jumlah INTEGER null);";
-        String sqlTransaksi = "create table " + TABEL_TRANSAKSI + "(id_transaksi INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, jumlah INTEGER null)";
 
-        Log.d("Tabel Barang", "onCreate" + sqlBarang);
-        Log.d("Tabel Stock", "onCreate" + sqlStock);
-        Log.d("Tabel Penjualan", "onCreate" + sqlPenjualan);
-        Log.d("Tabel Transaksi", "onCreate" + sqlTransaksi);
-
-        sqLiteDatabase.execSQL(sqlBarang);
-        sqLiteDatabase.execSQL(sqlStock);
-        sqLiteDatabase.execSQL(sqlPenjualan);
-        sqLiteDatabase.execSQL(sqlTransaksi);
-
+        Log.d("Tabel Barang", "onCreate" + CREATE_TABEL_BARANG);
+        Log.d("Tabel Stock", "onCreate" + CREATE_TABEL_STOCK);
+        Log.d("Tabel Penjualan", "onCreate" + CREATE_TABEL_PENJUALAN);
+        Log.d("Tabel Transaksi", "onCreate" + CREATE_TABEL_TRANSAKSI);
+        sqLiteDatabase.execSQL(CREATE_TABEL_BARANG);
+        sqLiteDatabase.execSQL(CREATE_TABEL_STOCK);
+        sqLiteDatabase.execSQL(CREATE_TABEL_PENJUALAN);
+        sqLiteDatabase.execSQL(CREATE_TABEL_TRANSAKSI);
 
     }
 
