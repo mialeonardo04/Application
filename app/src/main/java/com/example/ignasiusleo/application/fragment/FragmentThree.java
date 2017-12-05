@@ -30,7 +30,7 @@ public class FragmentThree extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_three, container, false);
-        add = v.findViewById(R.id.addNewItem);
+        add = v.findViewById(R.id.addNewStock);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

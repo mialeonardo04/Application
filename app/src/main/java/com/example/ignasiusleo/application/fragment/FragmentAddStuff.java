@@ -77,7 +77,8 @@ public class FragmentAddStuff extends Fragment {
                         ket.getText().toString() + "')";
                 //cursor = dbRead.rawQuery("SELECT ",null);
                 String sqlInsertStock = "insert into stock(id_stock, id_barang, tgl_datang, tgl_kadaluarsa) values('" +
-                        txtId.getText().toString() + "','','" +
+                        txtId.getText().toString() + "','" +
+                        "','" +
                         hargaBrg.getText().toString() + "','" +
                         ket.getText().toString() + "')";
                 db.execSQL(sqlInsertBarang);
