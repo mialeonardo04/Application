@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="0.25"
+                android:layout_weight="0.3"
                 android:background="@drawable/button_transaction_selector" />
 
             <ImageButton
@@ -50,25 +50,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="0.25"
+                android:layout_weight="0.3"
                 android:background="@drawable/button_inventory_selector" />
-            <!--
-
-                        <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="0.25"
-                            android:background="@drawable/button_pegawai_selector"
-                            android:id="@+id/pegawai"/>
-            -->
 
             <ImageButton
                 android:id="@+id/report"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="0.25"
+                android:layout_weight="0.3"
                 android:background="@drawable/button_report_selector" />
 
         </LinearLayout>
