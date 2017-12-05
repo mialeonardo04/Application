@@ -19,7 +19,7 @@ import com.example.ignasiusleo.application.R;
 public class FragmentThree extends Fragment {
 
     private TextView id;
-    private Button add;
+    private Button addStock;
     public FragmentThree() {
         // Required empty public constructor
     }
@@ -30,11 +30,11 @@ public class FragmentThree extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_three, container, false);
-        add = v.findViewById(R.id.addNewStock);
-        add.setOnClickListener(new View.OnClickListener() {
+        addStock = v.findViewById(R.id.addNewStock);
+        addStock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragmentAddBarang = new FragmentAddStuff();
+                Fragment fragmentAddBarang = new FragmentAddStock();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.main_content, fragmentAddBarang);

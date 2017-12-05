@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.ignasiusleo.application.fragment.FragmentAddStuff">
+    tools:context="com.example.ignasiusleo.application.fragment.FragmentAddStock">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout

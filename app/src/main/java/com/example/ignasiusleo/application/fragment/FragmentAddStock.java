@@ -26,7 +26,7 @@ import info.vividcode.android.zxing.CaptureActivityIntents;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentAddStuff extends Fragment {
+public class FragmentAddStock extends Fragment {
     protected Cursor cursor;
     TextView txtId;
     DataHelper dbHelper;
@@ -35,7 +35,7 @@ public class FragmentAddStuff extends Fragment {
     String defaultIdBarang = null;
 
 
-    public FragmentAddStuff() {
+    public FragmentAddStock() {
         // Required empty public constructor
     }
 
@@ -44,7 +44,7 @@ public class FragmentAddStuff extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_add_stuff, container, false);
+        View v = inflater.inflate(R.layout.fragment_add_stock, container, false);
         txtId = v.findViewById(R.id.id_barang);
         Button btnScan = v.findViewById(R.id.scanID);
         btnScan.setOnClickListener(new View.OnClickListener() {
