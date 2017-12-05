@@ -28,10 +28,10 @@ import info.vividcode.android.zxing.CaptureActivityIntents;
  */
 public class FragmentAddStock extends Fragment {
     protected Cursor cursor;
-    TextView txtId;
+    TextView txtIdStock;
     DataHelper dbHelper;
     Button save, cancel;
-    EditText namaBrg, hargaBrg, tgl_datang, tgl_expired, jumlah_brg, ket;
+    EditText id_barang, tgl_datang, tgl_expired;
     String defaultIdBarang = null;
 
 
@@ -45,8 +45,8 @@ public class FragmentAddStock extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_add_stock, container, false);
-        txtId = v.findViewById(R.id.id_barang);
-        Button btnScan = v.findViewById(R.id.scanID);
+
+        Button btnScan = v.findViewById(R.id.scanStockID);
         btnScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,31 +57,22 @@ public class FragmentAddStock extends Fragment {
         });
 
         dbHelper = new DataHelper(getActivity());
-        namaBrg = v.findViewById(R.id.nama);
-        hargaBrg = v.findViewById(R.id.harga);
+        txtIdStock = v.findViewById(R.id.id_stock);
+        id_barang = v.findViewById(R.id.selectIDBarang);
         tgl_datang = v.findViewById(R.id.tgl_masuk);
-        tgl_expired = v.findViewById(R.id.tgl_expired);
-        jumlah_brg = v.findViewById(R.id.jumlah);
-        ket = v.findViewById(R.id.et);
+        tgl_expired = v.findViewById(R.id.tgl_kadaluarsa);
+
         save = v.findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
-                //SQLiteDatabase dbRead = dbHelper.getReadableDatabase();
-                String sqlInsertBarang = "insert into barang(id_barang, nama_barang, jumlah, harga_barang, keterangan) values('" +
-                        defaultIdBarang + "','" +
-                        namaBrg.getText().toString() + "','" +
-                        jumlah_brg.getText().toString() + "','" +
-                        hargaBrg.getText().toString() + "','" +
-                        ket.getText().toString() + "')";
-                //cursor = dbRead.rawQuery("SELECT ",null);
                 String sqlInsertStock = "insert into stock(id_stock, id_barang, tgl_datang, tgl_kadaluarsa) values('" +
-                        txtId.getText().toString() + "','" +
-                        "','" +
-                        hargaBrg.getText().toString() + "','" +
-                        ket.getText().toString() + "')";
-                db.execSQL(sqlInsertBarang);
+                        txtIdStock.getText().toString() + "','" +
+                        id_barang.getText().toString() + "','" +
+                        tgl_datang.getText().toString() + "','" +
+                        tgl_expired.getText().toString() + "')";
+                db.execSQL(sqlInsertStock);
             }
         });
         cancel = v.findViewById(R.id.cancel);
@@ -105,7 +96,7 @@ public class FragmentAddStock extends Fragment {
         if (requestCode == 0) {
             if (resultCode == Activity.RESULT_OK && data != null) {
                 String val = data.getStringExtra("SCAN_RESULT");
-                txtId.setText(val);
+                txtIdStock.setText(val);
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Toast.makeText(getContext(), "Scanning incompleted, please try again!", Toast.LENGTH_SHORT).show();
