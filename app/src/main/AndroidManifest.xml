@@ -12,8 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <uses-permission android:name="android.permission.CAMERA" />
+        <uses-feature android:name="android.hardware.camera.autofocus" />
         <uses-permission android:name="android.permission.WAKE_LOCK" />
         <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
 
         <activity
             android:name=".SplashScreen"
