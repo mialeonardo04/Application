@@ -24,10 +24,10 @@ public class DataHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sqlBarang = "create table " + TABEL_BARANG + "(id_barang text PRIMARY KEY NOT NULL,nama_barang text null, harga_barang text null, keterangan text null);";
-        String sqlStock = "create table " + TABEL_STOCK + "(id_stock INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,id_barang text PRIMARY KEY NOT NULL,jumlah text not nul, tgl_datang text null, tgl_kadaluarsa text null);";
-        String sqlPenjualan = "create table " + TABEL_PENJUALAN + "(id_transaksi INTEGER not null,id_barang text not null, jumlah text null);";
-        String sqlTransaksi = "create table " + TABEL_TRANSAKSI + "(id_transaksi INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, jumlah text null)";
+        String sqlBarang = "create table " + TABEL_BARANG + "(id_barang INTEGER PRIMARY KEY NOT NULL,nama_barang text null,jumlah INTEGER not null, harga_barang INTEGER null, keterangan text null);";
+        String sqlStock = "create table " + TABEL_STOCK + "(id_stock text PRIMARY KEY NOT NULL,id_barang INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, tgl_datang text null, tgl_kadaluarsa text null);";
+        String sqlPenjualan = "create table " + TABEL_PENJUALAN + "(id_transaksi INTEGER not null,id_barang INTEGER not null, jumlah INTEGER null);";
+        String sqlTransaksi = "create table " + TABEL_TRANSAKSI + "(id_transaksi INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, jumlah INTEGER null)";
 
         Log.d("Tabel Barang", "onCreate" + sqlBarang);
         Log.d("Tabel Stock", "onCreate" + sqlStock);
