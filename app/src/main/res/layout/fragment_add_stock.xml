@@ -46,6 +46,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choose Item Below" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -54,9 +68,7 @@
                 android:id="@+id/selectIDBarang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
         </LinearLayout>
-
 
         <EditText
             android:id="@+id/tgl_masuk"

@@ -50,7 +50,7 @@ public class MainActivity extends ActionBarActivity {
         listSlide = new ArrayList<>();
 
         //tambah item slider menu
-        listSlide.add(new ItemSlideMenu(R.mipmap.ic_launcher,"    Beranda"));
+        listSlide.add(new ItemSlideMenu(R.mipmap.ic_launcher, "    Mo Kas"));
         listSlide.add(new ItemSlideMenu(R.drawable.button_transaction_selector,"    Transaksi"));
         listSlide.add(new ItemSlideMenu(R.drawable.button_inventory_selector,"    Data Barang"));
         /*listSlide.add(new ItemSlideMenu(R.drawable.button_pegawai_selector,"    Pegawai"));*/

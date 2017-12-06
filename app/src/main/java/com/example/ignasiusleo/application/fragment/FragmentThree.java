@@ -32,7 +32,7 @@ public class FragmentThree extends Fragment {
     Menu menu;
     DataHelper dbCenter;
     private TextView id;
-    private Button addStock;
+    private Button addStock, addItem;
 
     public FragmentThree() {
         // Required empty public constructor
@@ -49,7 +49,19 @@ public class FragmentThree extends Fragment {
         addStock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragmentAddBarang = new FragmentAddStock();
+                Fragment fragmentAddStock = new FragmentAddStock();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_content, fragmentAddStock);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+        addItem = v.findViewById(R.id.addNewBarang);
+        addItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragmentAddBarang = new FragmentAddItem();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.main_content, fragmentAddBarang);
