@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,8 @@ import info.vividcode.android.zxing.CaptureActivityIntents;
 public class FragmentAddStock extends Fragment {
     protected Cursor cursor;
     protected Cursor cursor1;
-    TextView txtIdStock, tv;
+    TextView txtIdStock;
+    EditText tv;
     DataHelper dbHelper;
     Button save, cancel;
     Spinner id_barang;
@@ -53,7 +55,7 @@ public class FragmentAddStock extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_add_stock, container, false);
+        final View v = inflater.inflate(R.layout.fragment_add_stock, container, false);
 
         Button btnScan = v.findViewById(R.id.scanStockID);
         btnScan.setOnClickListener(new View.OnClickListener() {
@@ -68,11 +70,19 @@ public class FragmentAddStock extends Fragment {
         dbHelper = new DataHelper(getActivity());
         txtIdStock = v.findViewById(R.id.id_stock);
         id_barang = v.findViewById(R.id.selectIDBarang);
+
+        showSpinner();
+
         id_barang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView adapterView, View view, int i, long l) {
                 /////////////////////
-                showSpinner();
+                int id_barang = databaseId;
+                String idStr = String.valueOf(id_barang);
+                //tv = v.findViewById(R.id.textSpinner);
+                // tv.setText(idStr);
+                Log.i("val selected", idStr);
+
             }
 
             @Override
@@ -94,6 +104,7 @@ public class FragmentAddStock extends Fragment {
                         tgl_datang.getText().toString() + "','" +
                         tgl_expired.getText().toString() + "')";
                 db.execSQL(sqlInsertStock);
+
             }
         });
         cancel = v.findViewById(R.id.cancel);
@@ -119,7 +130,7 @@ public class FragmentAddStock extends Fragment {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         id_barang.setAdapter(dataAdapter);
         int getId = ((SpinnerObject) id_barang.getSelectedItem()).getDatabaseId();
-        databaseId = getId;
+        this.databaseId = getId;
 
         ////////////////////////////////
     }

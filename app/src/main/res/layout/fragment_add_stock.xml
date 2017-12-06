@@ -50,11 +50,12 @@
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
-            <TextView
+            <EditText
                 android:id="@+id/textSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Choose Item Below" />
+                android:enabled="false"
+                android:hint="Choose Item Below" />
         </LinearLayout>
 
         <LinearLayout

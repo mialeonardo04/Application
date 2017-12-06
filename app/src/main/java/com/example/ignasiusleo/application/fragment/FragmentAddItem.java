@@ -68,7 +68,13 @@ public class FragmentAddItem extends Fragment {
                         desc.getText().toString() + "');"
                 );
                 Toast.makeText(getActivity(), "Data Inserted", Toast.LENGTH_LONG).show();
+
                 FragmentThree.fragmentThree.RefreshList();
+                Fragment back = new FragmentThree();
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.main_content, back).addToBackStack(null).commit();
+
                 clearText();
             }
         });

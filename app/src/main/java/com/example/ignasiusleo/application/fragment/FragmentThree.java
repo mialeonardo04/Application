@@ -91,14 +91,58 @@ public class FragmentThree extends Fragment {
             daftarId[i] = cursor.getString(0).toString();
             daftarNama[i] = cursor.getString(1).toString();
         }
-        //getId
-        /*for (int j = 0; j <cursor.getCount() ; j++) {
-            daftarId[j] = cursor.getString(0).toString();
-        }*/
 
-        ListView01.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_activated_1, daftarNama));
+        ListView01.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, daftarNama));
         ListView01.setSelected(true);
-        ListView01.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ListView01.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView arg0, View arg1, int arg2, long arg3) {
+                final String selection = daftarId[arg2];
+                final CharSequence[] dialogItem = {"Detail", "Edit", "Delete"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
+                builder.setTitle("Options");
+                builder.setItems(dialogItem, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int item) {
+                        Bundle bundle = new Bundle();
+                        switch (item) {
+                            case 0:
+                                Fragment detail = new FragmentDetailStock();
+                                bundle.putString("id", selection);
+                                detail.setArguments(bundle);
+
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.main_content, detail);
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+                                break;
+
+                            case 1:
+                                Fragment edit = new FragmentEditStock();
+                                bundle.putString("id", selection);
+                                edit.setArguments(bundle);
+
+                                FragmentManager fragmentManager2 = getActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+                                fragmentTransaction2.replace(R.id.main_content, edit);
+                                fragmentTransaction2.addToBackStack(null);
+                                fragmentTransaction2.commit();
+                                break;
+
+                            case 2:
+                                SQLiteDatabase database = dbCenter.getWritableDatabase();
+                                database.execSQL("DELETE FROM barang where id_barang ='" + selection + "';");
+                                RefreshList();
+                                break;
+                        }
+                    }
+                });
+                builder.create().show();
+                return true;
+            }
+        });
+        /*ListView01.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView arg0, View arg1, final int arg2, long arg3) {
                 final String selection = daftarId[arg2];
@@ -138,16 +182,14 @@ public class FragmentThree extends Fragment {
                                 SQLiteDatabase database = dbCenter.getWritableDatabase();
                                 database.execSQL("DELETE FROM barang where id_barang ='" + selection + "';");
                                 RefreshList();
-                                //Toast.makeText(getActivity(),daftar[arg2],Toast.LENGTH_LONG).show();
                                 break;
                         }
                     }
                 });
                 builder.create().show();
             }
-        });
+        });*/
         ((ArrayAdapter) ListView01.getAdapter()).notifyDataSetInvalidated();
-        //ListView01.getAdapter().notifyAll();
     }
 
 }
