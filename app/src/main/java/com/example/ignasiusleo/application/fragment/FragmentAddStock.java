@@ -47,7 +47,11 @@ public class FragmentAddStock extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_add_stock, container, false);
-
+       /* Spinner spinner = v.findViewById(R.id.selectIDBarang);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.month, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);*/
         Button btnScan = v.findViewById(R.id.scanStockID);
         btnScan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +75,7 @@ public class FragmentAddStock extends Fragment {
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 String sqlInsertStock = "insert into stock(id_stock, id_barang, tgl_datang, tgl_kadaluarsa) values('" +
                         txtIdStock.getText().toString() + "','" +
-                        id_barang.getAdapter().toString() + "','" +
+                        id_barang.getSelectedItem().toString() + "','" +
                         tgl_datang.getText().toString() + "','" +
                         tgl_expired.getText().toString() + "')";
                 db.execSQL(sqlInsertStock);
