@@ -27,10 +27,10 @@ import com.example.ignasiusleo.application.model.DataHelper;
 public class FragmentThree extends Fragment {
     public static FragmentThree fragmentThree;
     protected Cursor cursor;
-    String[] daftar;
+    String[] daftarNama, daftarId;
     ListView ListView01;
     Menu menu;
-    DataHelper dbCenter;
+    DataHelper dbCenter = new DataHelper(getActivity());
     private TextView id;
     private Button addStock, addItem;
 
@@ -79,21 +79,29 @@ public class FragmentThree extends Fragment {
     public void RefreshList() {
 
         SQLiteDatabase db = dbCenter.getReadableDatabase();
-        cursor = db.rawQuery("SELECT * FROM stock", null);
-        daftar = new String[cursor.getCount()];
+        cursor = db.rawQuery("SELECT * FROM barang", null);
+
+        daftarId = new String[cursor.getCount()];
+        daftarNama = new String[cursor.getCount()];
         cursor.moveToFirst();
 
+        //getNama
         for (int i = 0; i < cursor.getCount(); i++) {
             cursor.moveToPosition(i);
-            daftar[i] = cursor.getString(1).toString();
+            daftarId[i] = cursor.getString(0).toString();
+            daftarNama[i] = cursor.getString(1).toString();
         }
+        //getId
+        /*for (int j = 0; j <cursor.getCount() ; j++) {
+            daftarId[j] = cursor.getString(0).toString();
+        }*/
 
-        ListView01.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, daftar));
+        ListView01.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_activated_1, daftarNama));
         ListView01.setSelected(true);
         ListView01.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView arg0, View arg1, int arg2, long arg3) {
-                final String selection = daftar[arg2];
+            public void onItemClick(AdapterView arg0, View arg1, final int arg2, long arg3) {
+                final String selection = daftarId[arg2];
                 final CharSequence[] dialogItem = {"Detail", "Edit", "Delete"};
                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
                 builder.setTitle("Options");
@@ -104,7 +112,7 @@ public class FragmentThree extends Fragment {
                         switch (item) {
                             case 0:
                                 Fragment detail = new FragmentDetailStock();
-                                bundle.putString("id_stock", selection);
+                                bundle.putString("id", selection);
                                 detail.setArguments(bundle);
 
                                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -116,7 +124,7 @@ public class FragmentThree extends Fragment {
 
                             case 1:
                                 Fragment edit = new FragmentEditStock();
-                                bundle.putString("id_stock", selection);
+                                bundle.putString("id", selection);
                                 edit.setArguments(bundle);
 
                                 FragmentManager fragmentManager2 = getActivity().getSupportFragmentManager();
@@ -128,8 +136,9 @@ public class FragmentThree extends Fragment {
 
                             case 2:
                                 SQLiteDatabase database = dbCenter.getWritableDatabase();
-                                database.execSQL("DELETE FROM stock where id_stock ='" + selection + "';");
+                                database.execSQL("DELETE FROM barang where id_barang ='" + selection + "';");
                                 RefreshList();
+                                //Toast.makeText(getActivity(),daftar[arg2],Toast.LENGTH_LONG).show();
                                 break;
                         }
                     }
