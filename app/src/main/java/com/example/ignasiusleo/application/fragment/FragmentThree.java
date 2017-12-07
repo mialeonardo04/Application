@@ -131,6 +131,13 @@ public class FragmentThree extends Fragment {
                             case 1:
                                 SQLiteDatabase database = dbCenter.getWritableDatabase();
                                 database.execSQL("DELETE FROM barang where id_barang ='" + selection + "';");
+
+                                BlankFragment blank = new BlankFragment();
+                                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction.replace(R.id.frameContent, blank);
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+
                                 RefreshList();
                                 break;
                         }
@@ -156,70 +163,8 @@ public class FragmentThree extends Fragment {
                 fragmentTransaction.replace(R.id.frameContent, f);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-                //settingArguments
-
-
-
-                /*Fragment preview = new FragmentPreview();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.frameContent, preview);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();*/
             }
         });
-        /*ListView01.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView arg0, View arg1, final int arg2, long arg3) {
-                final String selection = daftarId[arg2];
-                final CharSequence[] dialogItem = {"Detail", "Edit", "Delete"};
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
-                builder.setTitle("Options");
-                builder.setItems(dialogItem, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int item) {
-                        Bundle bundle = new Bundle();
-                        switch (item) {
-                            case 0:
-                                Fragment detail = new FragmentDetailStock();
-                                bundle.putString("id", selection);
-                                detail.setArguments(bundle);
-
-                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                fragmentTransaction.replace(R.id.main_content, detail);
-                                fragmentTransaction.addToBackStack(null);
-                                fragmentTransaction.commit();
-                                break;
-
-                            case 1:
-                                Fragment edit = new FragmentEditStock();
-                                bundle.putString("id", selection);
-                                edit.setArguments(bundle);
-
-                                FragmentManager fragmentManager2 = getActivity().getSupportFragmentManager();
-                                FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
-                                fragmentTransaction2.replace(R.id.main_content, edit);
-                                fragmentTransaction2.addToBackStack(null);
-                                fragmentTransaction2.commit();
-                                break;
-
-                            case 2:
-                                SQLiteDatabase database = dbCenter.getWritableDatabase();
-                                database.execSQL("DELETE FROM barang where id_barang ='" + selection + "';");
-                                RefreshList();
-                                break;
-                        }
-                    }
-                });
-                builder.create().show();
-            }
-        });*/
-
-        //ListView02.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, daftarId2));
-
         ((ArrayAdapter) ListView01.getAdapter()).notifyDataSetInvalidated();
-        //((ArrayAdapter) ListView02.getAdapter()).notifyDataSetInvalidated();
     }
-
 }
