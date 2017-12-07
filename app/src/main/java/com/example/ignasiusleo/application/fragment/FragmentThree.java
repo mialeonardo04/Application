@@ -42,7 +42,7 @@ public class FragmentThree extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_three, container, false);
         ListView01 = v.findViewById(R.id.listView1);
-        ListView02 = v.findViewById(R.id.listView11);
+        //ListView02 = v.findViewById(R.id.listView11);
 
         Button addStock = v.findViewById(R.id.addNewStock);
         addStock.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +108,7 @@ public class FragmentThree extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView arg0, View arg1, int arg2, long arg3) {
                 final String selection = daftarId[arg2];
-                final CharSequence[] dialogItem = {"Detail", "Edit", "Delete"};
+                final CharSequence[] dialogItem = {"Edit", "Delete"};
                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
                 builder.setTitle("Options");
                 builder.setItems(dialogItem, new DialogInterface.OnClickListener() {
@@ -116,7 +116,7 @@ public class FragmentThree extends Fragment {
                     public void onClick(DialogInterface dialogInterface, int item) {
                         Bundle bundle = new Bundle();
                         switch (item) {
-                            case 0:
+                            /*case 0:
                                 Fragment detail = new FragmentDetailStock();
                                 bundle.putString("id", selection);
                                 detail.setArguments(bundle);
@@ -126,9 +126,9 @@ public class FragmentThree extends Fragment {
                                 fragmentTransaction.replace(R.id.main_content, detail);
                                 fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
-                                break;
+                                break;*/
 
-                            case 1:
+                            case 0:
                                 Fragment edit = new FragmentEditStock();
                                 bundle.putString("id", selection);
                                 edit.setArguments(bundle);
@@ -140,7 +140,7 @@ public class FragmentThree extends Fragment {
                                 fragmentTransaction2.commit();
                                 break;
 
-                            case 2:
+                            case 1:
                                 SQLiteDatabase database = dbCenter.getWritableDatabase();
                                 database.execSQL("DELETE FROM barang where id_barang ='" + selection + "';");
                                 RefreshList();
@@ -150,6 +150,18 @@ public class FragmentThree extends Fragment {
                 });
                 builder.create().show();
                 return true;
+            }
+        });
+        ListView01.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView arg0, View arg1, int arg2, long arg3) {
+                Bundle bundle = new Bundle();
+                Fragment preview = new FragmentPreview();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frameContent, preview);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
         /*ListView01.setOnItemClickListener(new AdapterView.OnItemClickListener() {
