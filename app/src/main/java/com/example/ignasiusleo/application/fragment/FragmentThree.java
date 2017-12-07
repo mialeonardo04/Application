@@ -28,7 +28,7 @@ public class FragmentThree extends Fragment {
     public static FragmentThree fragmentThree;
     protected Cursor cursor, cursor2;
     String[] daftarNama, daftarId, daftarNama2, daftarId2;
-    ListView ListView01, ListView02;
+    ListView ListView01;
     DataHelper dbCenter = new DataHelper(getActivity());
     String args = null;
     private TextView id;
@@ -133,7 +133,7 @@ public class FragmentThree extends Fragment {
 
                                 SQLiteDatabase database = dbCenter.getWritableDatabase();
                                 database.execSQL("DELETE FROM barang where id_barang ='" + selection + "';");
-                                database.execSQL("DELETE FROM stock where id_stock ='" + args + "';");
+                                database.execSQL("DELETE FROM stock where id_stock ='" + args + "' AND id_barang = '" + selection + "';");
 
                                 BlankFragment blank = new BlankFragment();
                                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
