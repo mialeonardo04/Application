@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -29,7 +28,6 @@ public class FragmentThree extends Fragment {
     protected Cursor cursor, cursor2;
     String[] daftarNama, daftarId, daftarNama2, daftarId2;
     ListView ListView01, ListView02;
-    Menu menu;
     DataHelper dbCenter = new DataHelper(getActivity());
     private TextView id;
 
@@ -81,15 +79,15 @@ public class FragmentThree extends Fragment {
 
         SQLiteDatabase db = dbCenter.getReadableDatabase();
         cursor = db.rawQuery("SELECT * FROM barang", null);
-        cursor2 = db.rawQuery("SELECT * FROM stock", null);
+        //cursor2 = db.rawQuery("SELECT * FROM stock", null);
 
         daftarId = new String[cursor.getCount()];
         daftarNama = new String[cursor.getCount()];
-        daftarId2 = new String[cursor2.getCount()];
-        daftarNama2 = new String[cursor2.getCount()];
+        //daftarId2 = new String[cursor2.getCount()];
+        //daftarNama2 = new String[cursor2.getCount()];
 
         cursor.moveToFirst();
-        cursor2.moveToFirst();
+        //cursor2.moveToFirst();
 
         //getNamadanId barang
         for (int i = 0; i < cursor.getCount(); i++) {
@@ -98,11 +96,11 @@ public class FragmentThree extends Fragment {
             daftarNama[i] = cursor.getString(1);
         }
 
-        for (int j = 0; j < cursor2.getCount(); j++) {
+        /*for (int j = 0; j < cursor2.getCount(); j++) {
             cursor2.moveToPosition(j);
             daftarId2[j] = cursor2.getString(0);
             daftarNama2[j] = cursor2.getString(1);
-        }
+        }*/
 
         ListView01.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, daftarNama));
         ListView01.setSelected(true);
@@ -202,10 +200,10 @@ public class FragmentThree extends Fragment {
             }
         });*/
 
-        ListView02.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, daftarId2));
+        //ListView02.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, daftarId2));
 
         ((ArrayAdapter) ListView01.getAdapter()).notifyDataSetInvalidated();
-        ((ArrayAdapter) ListView02.getAdapter()).notifyDataSetInvalidated();
+        //((ArrayAdapter) ListView02.getAdapter()).notifyDataSetInvalidated();
     }
 
 }
