@@ -3,8 +3,8 @@ package com.example.ignasiusleo.application.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -33,17 +33,12 @@ import info.vividcode.android.zxing.CaptureActivityIntents;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentAddStock extends Fragment {
-    protected Cursor cursor;
-    protected Cursor cursor1;
     protected int getId;
     TextView txtIdStock, txtSpinner;
-    EditText tv;
     DataHelper dbHelper;
     Button save, cancel;
     Spinner id_barang;
     EditText tgl_datang, tgl_expired;
-    String defaultIdBarang = null;
-    String id;
 
     public FragmentAddStock() {
         // Required empty public constructor
@@ -85,7 +80,7 @@ public class FragmentAddStock extends Fragment {
                 getId = ((SpinnerObject) id_barang.getSelectedItem()).getDatabaseId();
                 String txt = String.valueOf(getId);
                 if (txt.toString().equals("0")) {
-                    txtSpinner.setText("your item index shown here");
+                    txtSpinner.setHint("your item index shown here");
                 } else {
                     txtSpinner.setText(txt);
                 }
@@ -93,7 +88,7 @@ public class FragmentAddStock extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                //////////////////////
+                // I'm not doin' anything bro wkwk
             }
         });
         tgl_datang = v.findViewById(R.id.tgl_masuk);
@@ -105,36 +100,56 @@ public class FragmentAddStock extends Fragment {
             @Override
             public void onClick(View view) {
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
-                String sqlInsertStock = "insert into stock(id_stock, id_barang, tgl_datang, tgl_kadaluarsa) values('" +
-                        txtIdStock.getText().toString() + "','" +
-                        txtSpinner.getText().toString() + "','" +
-                        tgl_datang.getText().toString() + "','" +
-                        tgl_expired.getText().toString() + "')";
+                try {
+                    String sqlInsertStock = "insert into stock(id_stock, id_barang, tgl_datang, tgl_kadaluarsa) values('" +
+                            txtIdStock.getText().toString() + "','" +
+                            txtSpinner.getText().toString() + "','" +
+                            tgl_datang.getText().toString() + "','" +
+                            tgl_expired.getText().toString() + "')";
+                    if (txtSpinner.getText().equals(null) || txtIdStock.getText().equals(null) ||
+                            txtSpinner.getText().equals("") || txtIdStock.getText().equals("") ||
+                            tgl_datang.getText().equals("") || tgl_expired.getText().equals("") ||
+                            tgl_datang.getText().equals(null) || tgl_expired.getText().equals(null)) {
+                        Toast.makeText(getActivity(), "NULL DATA! NOT ALLOWED", Toast.LENGTH_LONG).show();
+                    } else {
+                        db.execSQL(sqlInsertStock);
+                        clearText();
+                        Toast.makeText(getActivity(), "Data Inserted", Toast.LENGTH_LONG).show();
+                        pindahFragment();
+                        db.close();
+                    }
+                } catch (SQLiteException e) {
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                } finally {
+                    db.close();
+                }
 
-                db.execSQL(sqlInsertStock);
+
 
             }
         });
+
         cancel = v.findViewById(R.id.cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment3 = new FragmentThree();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.main_content, fragment3);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                pindahFragment();
             }
         });
         return v;
     }
 
-
+    private void pindahFragment() {
+        Fragment fragment3 = new FragmentThree();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_content, fragment3);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        /*super.onActivityResult(requestCode, resultCode, data);*/
         if (requestCode == 0) {
             if (resultCode == Activity.RESULT_OK && data != null) {
                 String val = data.getStringExtra("SCAN_RESULT");
@@ -147,5 +162,13 @@ public class FragmentAddStock extends Fragment {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void clearText() {
+        txtIdStock.setText("");
+        txtSpinner.setText("");
+        tgl_datang.setText("");
+        tgl_expired.setText("");
+
     }
 }

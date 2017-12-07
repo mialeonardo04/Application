@@ -3,10 +3,12 @@ package com.example.ignasiusleo.application.fragment;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,25 +62,41 @@ public class FragmentAddItem extends Fragment {
             @Override
             public void onClick(View view) {
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
-                db.execSQL("INSERT into barang(id_barang,nama_barang,jumlah,harga_barang,keterangan) values('" +
-                        id_barang.getText().toString() + "','" +
-                        nama_barang.getText().toString() + "','" +
-                        quantity.getText().toString() + "','" +
-                        price.getText().toString() + "','" +
-                        desc.getText().toString() + "');"
-                );
-                Toast.makeText(getActivity(), "Data Inserted", Toast.LENGTH_LONG).show();
-
-                FragmentThree.fragmentThree.RefreshList();
-                Fragment back = new FragmentThree();
-                FragmentManager manager = getActivity().getSupportFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.main_content, back).addToBackStack(null).commit();
-
-                clearText();
+                try {
+                    String query = "INSERT into barang(id_barang,nama_barang,jumlah,harga_barang,keterangan) values('" +
+                            id_barang.getText().toString() + "','" +
+                            nama_barang.getText().toString() + "','" +
+                            quantity.getText().toString() + "','" +
+                            price.getText().toString() + "','" +
+                            desc.getText().toString() + "');";
+                    if (id_barang.getText().equals("") || nama_barang.getText().equals("")
+                            || quantity.getText().equals("") || price.getText().equals("")
+                            || desc.getText().equals("")) {
+                        Toast.makeText(getActivity(), "NULL DATA! NOT ALLOWED", Toast.LENGTH_LONG).show();
+                    } else {
+                        Log.i("aa", id_barang.getText().toString());
+                        db.execSQL(query);
+                        Toast.makeText(getActivity(), "Data Inserted", Toast.LENGTH_LONG).show();
+                        clearText();
+                        pindahFragment();
+                        db.close();
+                    }
+                } catch (SQLiteException e) {
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                } finally {
+                    db.close();
+                }
             }
         });
         return v;
+    }
+
+    private void pindahFragment() {
+        FragmentThree.fragmentThree.RefreshList();
+        Fragment back = new FragmentThree();
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.main_content, back).addToBackStack(null).commit();
     }
 
     private void clearText() {
@@ -88,5 +106,4 @@ public class FragmentAddItem extends Fragment {
         price.setText("");
         desc.setText("");
     }
-
 }

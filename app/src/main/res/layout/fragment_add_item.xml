@@ -23,35 +23,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="ID ITEM" />
+            android:hint="ID ITEM"
+            android:text="" />
 
         <EditText
             android:id="@+id/nama_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="ITEM NAME" />
+            android:hint="ITEM NAME"
+            android:text="" />
 
         <EditText
             android:id="@+id/qty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="QUANTITY" />
+            android:hint="QUANTITY"
+            android:text="" />
 
         <EditText
             android:id="@+id/harga"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="PRICE" />
+            android:hint="PRICE"
+            android:text="" />
 
         <EditText
             android:id="@+id/et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="DESCRIPTION" />
+            android:hint="DESCRIPTION"
+            android:text="" />
 
         <LinearLayout
             android:layout_width="match_parent"

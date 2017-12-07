@@ -32,7 +32,6 @@ public class FragmentThree extends Fragment {
     Menu menu;
     DataHelper dbCenter = new DataHelper(getActivity());
     private TextView id;
-    private Button addStock, addItem;
 
     public FragmentThree() {
         // Required empty public constructor
@@ -47,7 +46,7 @@ public class FragmentThree extends Fragment {
         ListView01 = v.findViewById(R.id.listView1);
         ListView02 = v.findViewById(R.id.listView11);
 
-        addStock = v.findViewById(R.id.addNewStock);
+        Button addStock = v.findViewById(R.id.addNewStock);
         addStock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,7 +58,7 @@ public class FragmentThree extends Fragment {
                 fragmentTransaction.commit();
             }
         });
-        addItem = v.findViewById(R.id.addNewBarang);
+        Button addItem = v.findViewById(R.id.addNewBarang);
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,14 +94,14 @@ public class FragmentThree extends Fragment {
         //getNamadanId barang
         for (int i = 0; i < cursor.getCount(); i++) {
             cursor.moveToPosition(i);
-            daftarId[i] = cursor.getString(0).toString();
-            daftarNama[i] = cursor.getString(1).toString();
+            daftarId[i] = cursor.getString(0);
+            daftarNama[i] = cursor.getString(1);
         }
 
         for (int j = 0; j < cursor2.getCount(); j++) {
             cursor2.moveToPosition(j);
-            daftarId2[j] = cursor2.getString(0).toString();
-            daftarNama2[j] = cursor2.getString(1).toString();
+            daftarId2[j] = cursor2.getString(0);
+            daftarNama2[j] = cursor2.getString(1);
         }
 
         ListView01.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, daftarNama));
@@ -202,6 +201,7 @@ public class FragmentThree extends Fragment {
                 builder.create().show();
             }
         });*/
+
         ListView02.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, daftarId2));
 
         ((ArrayAdapter) ListView01.getAdapter()).notifyDataSetInvalidated();
