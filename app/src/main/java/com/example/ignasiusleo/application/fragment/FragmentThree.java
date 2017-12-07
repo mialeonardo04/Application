@@ -79,15 +79,15 @@ public class FragmentThree extends Fragment {
 
         SQLiteDatabase db = dbCenter.getReadableDatabase();
         cursor = db.rawQuery("SELECT * FROM barang", null);
-        //cursor2 = db.rawQuery("SELECT * FROM stock", null);
+        cursor2 = db.rawQuery("SELECT * FROM stock", null);
 
         daftarId = new String[cursor.getCount()];
         daftarNama = new String[cursor.getCount()];
-        //daftarId2 = new String[cursor2.getCount()];
-        //daftarNama2 = new String[cursor2.getCount()];
+        daftarId2 = new String[cursor2.getCount()];
+        daftarNama2 = new String[cursor2.getCount()];
 
         cursor.moveToFirst();
-        //cursor2.moveToFirst();
+        cursor2.moveToFirst();
 
         //getNamadanId barang
         for (int i = 0; i < cursor.getCount(); i++) {
@@ -96,11 +96,11 @@ public class FragmentThree extends Fragment {
             daftarNama[i] = cursor.getString(1);
         }
 
-        /*for (int j = 0; j < cursor2.getCount(); j++) {
+        for (int j = 0; j < cursor2.getCount(); j++) {
             cursor2.moveToPosition(j);
             daftarId2[j] = cursor2.getString(0);
             daftarNama2[j] = cursor2.getString(1);
-        }*/
+        }
 
         ListView01.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, daftarNama));
         ListView01.setSelected(true);
@@ -116,18 +116,6 @@ public class FragmentThree extends Fragment {
                     public void onClick(DialogInterface dialogInterface, int item) {
                         Bundle bundle = new Bundle();
                         switch (item) {
-                            /*case 0:
-                                Fragment detail = new FragmentDetailStock();
-                                bundle.putString("id", selection);
-                                detail.setArguments(bundle);
-
-                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                fragmentTransaction.replace(R.id.main_content, detail);
-                                fragmentTransaction.addToBackStack(null);
-                                fragmentTransaction.commit();
-                                break;*/
-
                             case 0:
                                 Fragment edit = new FragmentEditStock();
                                 bundle.putString("id", selection);
@@ -155,13 +143,29 @@ public class FragmentThree extends Fragment {
         ListView01.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView arg0, View arg1, int arg2, long arg3) {
+                String selection = daftarId[arg2];
+                String selection2 = daftarId2[arg2];
+
                 Bundle bundle = new Bundle();
-                Fragment preview = new FragmentPreview();
+                bundle.putString("id_brg", selection);
+                bundle.putString("id_stok", selection2);
+
+                FragmentPreview f = new FragmentPreview();
+                f.setArguments(bundle);
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.frameContent, f);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                //settingArguments
+
+
+
+                /*Fragment preview = new FragmentPreview();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.frameContent, preview);
                 fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();*/
             }
         });
         /*ListView01.setOnItemClickListener(new AdapterView.OnItemClickListener() {
