@@ -13,6 +13,10 @@ public class SpinnerObject {
         this.databaseValue = databaseValue;
     }
 
+    public SpinnerObject(String a) {
+        this.databaseValue = a;
+    }
+
     public int getDatabaseId() {
         return databaseId;
     }

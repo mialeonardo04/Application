@@ -58,6 +58,7 @@ public class DataHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         cursor = db.rawQuery(selectQuery, null);
 
+        labels.add(new SpinnerObject("Choose item here"));
         if (cursor.moveToFirst()) {
             do {
                 labels.add(new SpinnerObject(cursor.getInt(0), cursor.getString(1)));

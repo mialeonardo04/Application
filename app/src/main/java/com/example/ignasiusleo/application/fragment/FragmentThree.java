@@ -26,9 +26,9 @@ import com.example.ignasiusleo.application.model.DataHelper;
  */
 public class FragmentThree extends Fragment {
     public static FragmentThree fragmentThree;
-    protected Cursor cursor;
-    String[] daftarNama, daftarId;
-    ListView ListView01;
+    protected Cursor cursor, cursor2;
+    String[] daftarNama, daftarId, daftarNama2, daftarId2;
+    ListView ListView01, ListView02;
     Menu menu;
     DataHelper dbCenter = new DataHelper(getActivity());
     private TextView id;
@@ -45,6 +45,8 @@ public class FragmentThree extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_three, container, false);
         ListView01 = v.findViewById(R.id.listView1);
+        ListView02 = v.findViewById(R.id.listView11);
+
         addStock = v.findViewById(R.id.addNewStock);
         addStock.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,16 +82,27 @@ public class FragmentThree extends Fragment {
 
         SQLiteDatabase db = dbCenter.getReadableDatabase();
         cursor = db.rawQuery("SELECT * FROM barang", null);
+        cursor2 = db.rawQuery("SELECT * FROM stock", null);
 
         daftarId = new String[cursor.getCount()];
         daftarNama = new String[cursor.getCount()];
-        cursor.moveToFirst();
+        daftarId2 = new String[cursor2.getCount()];
+        daftarNama2 = new String[cursor2.getCount()];
 
-        //getNama
+        cursor.moveToFirst();
+        cursor2.moveToFirst();
+
+        //getNamadanId barang
         for (int i = 0; i < cursor.getCount(); i++) {
             cursor.moveToPosition(i);
             daftarId[i] = cursor.getString(0).toString();
             daftarNama[i] = cursor.getString(1).toString();
+        }
+
+        for (int j = 0; j < cursor2.getCount(); j++) {
+            cursor2.moveToPosition(j);
+            daftarId2[j] = cursor2.getString(0).toString();
+            daftarNama2[j] = cursor2.getString(1).toString();
         }
 
         ListView01.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, daftarNama));
@@ -189,7 +202,10 @@ public class FragmentThree extends Fragment {
                 builder.create().show();
             }
         });*/
+        ListView02.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, daftarId2));
+
         ((ArrayAdapter) ListView01.getAdapter()).notifyDataSetInvalidated();
+        ((ArrayAdapter) ListView02.getAdapter()).notifyDataSetInvalidated();
     }
 
 }

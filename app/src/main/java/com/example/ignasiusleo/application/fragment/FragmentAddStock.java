@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +35,8 @@ import info.vividcode.android.zxing.CaptureActivityIntents;
 public class FragmentAddStock extends Fragment {
     protected Cursor cursor;
     protected Cursor cursor1;
-    TextView txtIdStock;
+    protected int getId;
+    TextView txtIdStock, txtSpinner;
     EditText tv;
     DataHelper dbHelper;
     Button save, cancel;
@@ -44,19 +44,25 @@ public class FragmentAddStock extends Fragment {
     EditText tgl_datang, tgl_expired;
     String defaultIdBarang = null;
     String id;
-    private int databaseId;
 
     public FragmentAddStock() {
         // Required empty public constructor
     }
 
 
+    public void showSpinner() {
+        DataHelper db = new DataHelper(getActivity());
+        List<SpinnerObject> labels = db.getAllLabels();
+        ArrayAdapter<SpinnerObject> dataAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_item, labels);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        id_barang.setAdapter(dataAdapter);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.fragment_add_stock, container, false);
-
         Button btnScan = v.findViewById(R.id.scanStockID);
         btnScan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,9 +72,9 @@ public class FragmentAddStock extends Fragment {
                 startActivityForResult(capture, 0);
             }
         });
-
         dbHelper = new DataHelper(getActivity());
         txtIdStock = v.findViewById(R.id.id_stock);
+        txtSpinner = v.findViewById(R.id.textSpinner);
         id_barang = v.findViewById(R.id.selectIDBarang);
 
         showSpinner();
@@ -76,13 +82,13 @@ public class FragmentAddStock extends Fragment {
         id_barang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView adapterView, View view, int i, long l) {
-                /////////////////////
-                int id_barang = databaseId;
-                String idStr = String.valueOf(id_barang);
-                //tv = v.findViewById(R.id.textSpinner);
-                // tv.setText(idStr);
-                Log.i("val selected", idStr);
-
+                getId = ((SpinnerObject) id_barang.getSelectedItem()).getDatabaseId();
+                String txt = String.valueOf(getId);
+                if (txt.toString().equals("0")) {
+                    txtSpinner.setText("your item index shown here");
+                } else {
+                    txtSpinner.setText(txt);
+                }
             }
 
             @Override
@@ -94,15 +100,17 @@ public class FragmentAddStock extends Fragment {
         tgl_expired = v.findViewById(R.id.tgl_kadaluarsa);
 
         save = v.findViewById(R.id.save);
+        final String a = String.valueOf(getId);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 String sqlInsertStock = "insert into stock(id_stock, id_barang, tgl_datang, tgl_kadaluarsa) values('" +
                         txtIdStock.getText().toString() + "','" +
-                        id_barang.getSelectedItem().toString() + "','" +
+                        txtSpinner.getText().toString() + "','" +
                         tgl_datang.getText().toString() + "','" +
                         tgl_expired.getText().toString() + "')";
+
                 db.execSQL(sqlInsertStock);
 
             }
@@ -122,18 +130,7 @@ public class FragmentAddStock extends Fragment {
         return v;
     }
 
-    public void showSpinner() {
-        DataHelper db = new DataHelper(getActivity());
-        List<SpinnerObject> labels = db.getAllLabels();
-        ArrayAdapter<SpinnerObject> dataAdapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_spinner_item, labels);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        id_barang.setAdapter(dataAdapter);
-        int getId = ((SpinnerObject) id_barang.getSelectedItem()).getDatabaseId();
-        this.databaseId = getId;
 
-        ////////////////////////////////
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
