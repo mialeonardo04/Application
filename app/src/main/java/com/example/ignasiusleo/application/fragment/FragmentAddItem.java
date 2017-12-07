@@ -1,7 +1,6 @@
 package com.example.ignasiusleo.application.fragment;
 
 
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
@@ -23,11 +22,9 @@ import com.example.ignasiusleo.application.model.DataHelper;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentAddItem extends Fragment {
-    protected Cursor cursor;
     DataHelper dbHelper;
     Button save, cancel;
     EditText id_barang, nama_barang, quantity, price, desc;
-    FragmentThree f3;
 
     public FragmentAddItem() {
         // Required empty public constructor

@@ -123,9 +123,6 @@ public class FragmentAddStock extends Fragment {
                 } finally {
                     db.close();
                 }
-
-
-
             }
         });
 
