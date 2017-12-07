@@ -2,6 +2,7 @@ package com.example.ignasiusleo.application.fragment;
 
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,7 +26,10 @@ import com.example.ignasiusleo.application.R;
 import com.example.ignasiusleo.application.model.DataHelper;
 import com.example.ignasiusleo.application.model.SpinnerObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import info.vividcode.android.zxing.CaptureActivity;
 import info.vividcode.android.zxing.CaptureActivityIntents;
@@ -91,8 +96,59 @@ public class FragmentAddStock extends Fragment {
                 // I'm not doin' anything bro wkwk
             }
         });
+        final Calendar myCal = Calendar.getInstance();
+        final Calendar myCal2 = Calendar.getInstance();
         tgl_datang = v.findViewById(R.id.tgl_masuk);
         tgl_expired = v.findViewById(R.id.tgl_kadaluarsa);
+
+        final DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                myCal.set(Calendar.YEAR, year);
+                myCal.set(Calendar.MONTH, monthOfYear);
+                myCal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+            private void updateLabel() {
+                String format = "MM/dd/yy";
+                SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
+                tgl_datang.setText(sdf.format(myCal.getTime()));
+            }
+        };
+        tgl_datang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(getActivity(), dateSetListener,
+                        myCal.get(Calendar.YEAR), myCal.get(Calendar.MONTH),
+                        myCal.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        final DatePickerDialog.OnDateSetListener dataSetListener2 = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day) {
+                myCal2.set(Calendar.YEAR, year);
+                myCal2.set(Calendar.MONTH, month);
+                myCal2.set(Calendar.DAY_OF_MONTH, day);
+                updateLabel2();
+            }
+
+            private void updateLabel2() {
+                String format = "MM/dd/yy";
+                SimpleDateFormat sdf1 = new SimpleDateFormat(format, Locale.US);
+                tgl_expired.setText(sdf1.format(myCal2.getTime()));
+            }
+        };
+        tgl_expired.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(getActivity(), dataSetListener2,
+                        myCal2.get(Calendar.YEAR), myCal2.get(Calendar.MONTH),
+                        myCal2.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         save = v.findViewById(R.id.save);
         final String a = String.valueOf(getId);
@@ -135,6 +191,7 @@ public class FragmentAddStock extends Fragment {
         });
         return v;
     }
+
 
     private void pindahFragment() {
         Fragment fragment3 = new FragmentThree();

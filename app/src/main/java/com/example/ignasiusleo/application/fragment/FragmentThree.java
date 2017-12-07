@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ignasiusleo.application.R;
 import com.example.ignasiusleo.application.model.DataHelper;
@@ -29,6 +30,7 @@ public class FragmentThree extends Fragment {
     String[] daftarNama, daftarId, daftarNama2, daftarId2;
     ListView ListView01, ListView02;
     DataHelper dbCenter = new DataHelper(getActivity());
+    String args = null;
     private TextView id;
 
     public FragmentThree() {
@@ -42,7 +44,6 @@ public class FragmentThree extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_three, container, false);
         ListView01 = v.findViewById(R.id.listView1);
-        //ListView02 = v.findViewById(R.id.listView11);
 
         Button addStock = v.findViewById(R.id.addNewStock);
         addStock.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +107,7 @@ public class FragmentThree extends Fragment {
         ListView01.setSelected(true);
         ListView01.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView arg0, View arg1, int arg2, long arg3) {
+            public boolean onItemLongClick(AdapterView arg0, View arg1, final int arg2, long arg3) {
                 final String selection = daftarId[arg2];
                 final CharSequence[] dialogItem = {"Edit", "Delete"};
                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
@@ -129,8 +130,10 @@ public class FragmentThree extends Fragment {
                                 break;
 
                             case 1:
+
                                 SQLiteDatabase database = dbCenter.getWritableDatabase();
                                 database.execSQL("DELETE FROM barang where id_barang ='" + selection + "';");
+                                database.execSQL("DELETE FROM stock where id_stock ='" + args + "';");
 
                                 BlankFragment blank = new BlankFragment();
                                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -150,19 +153,26 @@ public class FragmentThree extends Fragment {
         ListView01.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView arg0, View arg1, int arg2, long arg3) {
-                String selection = daftarId[arg2];
-                String selection2 = daftarId2[arg2];
+                /*f(msgdesc.length() == 0 || msgdesc[i].length() == 0)*/
+                try {
+                    String selection = daftarId[arg2];
+                    String selection2 = daftarId2[arg2];
 
-                Bundle bundle = new Bundle();
-                bundle.putString("id_brg", selection);
-                bundle.putString("id_stok", selection2);
+                    args = selection2;
 
-                FragmentPreview f = new FragmentPreview();
-                f.setArguments(bundle);
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frameContent, f);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id_brg", selection);
+                    bundle.putString("id_stok", selection2);
+
+                    FragmentPreview f = new FragmentPreview();
+                    f.setArguments(bundle);
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.frameContent, f);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    Toast.makeText(getActivity(), "Insert your barcode ID first to preview", Toast.LENGTH_LONG).show();
+                }
             }
         });
         ((ArrayAdapter) ListView01.getAdapter()).notifyDataSetInvalidated();
