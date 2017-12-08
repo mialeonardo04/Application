@@ -22,7 +22,7 @@ public class DataHelper extends SQLiteOpenHelper {
     private static final String TABEL_PENJUALAN = "penjualan";
     private static final String TABEL_TRANSAKSI = "transaksi";
     private static final String CREATE_TABEL_BARANG = "CREATE TABLE " + TABEL_BARANG + " (" +
-            "id_barang VARCHAR (100) PRIMARY KEY, " +
+            "id_barang INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "nama_barang VARCHAR (100), " +
             "jumlah INTEGER, " +
             "harga_barang INTEGER, " +
@@ -30,14 +30,14 @@ public class DataHelper extends SQLiteOpenHelper {
             ");";
     private static final String CREATE_TABEL_STOCK = "CREATE TABLE " + TABEL_STOCK + " (" +
             "id_stock VARCHAR (100) PRIMARY KEY, " +
-            "id_barang VARCHAR (100), " +
+            "id_barang INTEGER, " +
             "tgl_datang VARCHAR (100), " +
             "tgl_kadaluarsa VARCHAR (100)," +
             "FOREIGN KEY(id_barang) REFERENCES " + TABEL_BARANG + "(id_barang)" +
             ");";
     private static final String CREATE_TABEL_PENJUALAN = "CREATE TABLE " + TABEL_PENJUALAN + " (" +
-            "id_transaksi INTEGER NULL, " +
-            "id_barang VARCHAR (100) NULL, " +
+            "id_transaksi INTEGER , " +
+            "id_barang INTEGER , " +
             "jumlah INTEGER, " +
             "tgl_kadaluarsa VARCHAR (100)," +
             "FOREIGN KEY(id_transaksi) REFERENCES " + TABEL_TRANSAKSI + "(id_transaksi)," +
