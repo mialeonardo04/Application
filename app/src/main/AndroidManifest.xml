@@ -45,11 +45,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".stock.DetailStockActivity" />
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="landscape" />
-        <activity android:name=".stock.EditStockActivity"></activity>
     </application>
 
 </manifest>
