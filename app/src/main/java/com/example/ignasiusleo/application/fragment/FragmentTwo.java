@@ -54,7 +54,7 @@ public class FragmentTwo extends Fragment {
 
                 Bundle bundle = new Bundle();
                 bundle.putString("scanResult",val);
-
+/*
                 android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -62,7 +62,7 @@ public class FragmentTwo extends Fragment {
                 thirdFragment.setArguments(bundle);
 
                 fragmentTransaction.replace(R.id.main_content,thirdFragment);
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();*/
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Toast.makeText(getContext(), "Scanning incompleted, please try again!", Toast.LENGTH_SHORT).show();
             }
