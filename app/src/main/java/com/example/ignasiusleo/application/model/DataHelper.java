@@ -29,11 +29,10 @@ public class DataHelper extends SQLiteOpenHelper {
             "keterangan VARCHAR (100)" +
             ");";
     private static final String CREATE_TABEL_STOCK = "CREATE TABLE " + TABEL_STOCK + " (" +
-            "id_stock VARCHAR (100), " +
+            "id_stock VARCHAR (100) PRIMARY KEY, " +
             "id_barang VARCHAR (100), " +
             "tgl_datang VARCHAR (100), " +
             "tgl_kadaluarsa VARCHAR (100)," +
-            "PRIMARY KEY(id_stock,tgl_datang)," +
             "FOREIGN KEY(id_barang) REFERENCES " + TABEL_BARANG + "(id_barang)" +
             ");";
     private static final String CREATE_TABEL_PENJUALAN = "CREATE TABLE " + TABEL_PENJUALAN + " (" +
