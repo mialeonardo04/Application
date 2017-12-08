@@ -52,17 +52,17 @@ public class FragmentTwo extends Fragment {
             if (resultCode == Activity.RESULT_OK && data != null){
                 String val = data.getStringExtra("SCAN_RESULT");
 
+                FragmentTransaksi fragmentTransaksi = new FragmentTransaksi();
                 Bundle bundle = new Bundle();
                 bundle.putString("scanResult",val);
-/*
-                android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                FragmentThree thirdFragment = new FragmentThree();
-                thirdFragment.setArguments(bundle);
+                android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager()
+                        .beginTransaction();
 
-                fragmentTransaction.replace(R.id.main_content,thirdFragment);
-                fragmentTransaction.commit();*/
+                fragmentTransaksi.setArguments(bundle);
+                fragmentTransaction.replace(R.id.frameTransaksi, fragmentTransaksi);
+                fragmentTransaction.commit();
+
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Toast.makeText(getContext(), "Scanning incompleted, please try again!", Toast.LENGTH_SHORT).show();
             }
