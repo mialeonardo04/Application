@@ -16,6 +16,7 @@ import com.example.ignasiusleo.application.adapter.SlidingMenuAdapter;
 import com.example.ignasiusleo.application.dialog.CustomDialogClass;
 import com.example.ignasiusleo.application.fragment.FragmentAbout;
 import com.example.ignasiusleo.application.fragment.FragmentFive;
+import com.example.ignasiusleo.application.fragment.FragmentHelp;
 import com.example.ignasiusleo.application.fragment.FragmentOne;
 import com.example.ignasiusleo.application.fragment.FragmentThree;
 import com.example.ignasiusleo.application.fragment.FragmentTwo;
@@ -118,6 +119,10 @@ public class MainActivity extends ActionBarActivity {
         }
 
         switch (item.getItemId()) {
+            case R.id.menuItem1:
+                pindahFragment(5);
+                setTitle("User Guide");
+                return true;
             case R.id.menuItem2:
                 methodKeluar();
                 return true;
@@ -169,6 +174,11 @@ public class MainActivity extends ActionBarActivity {
                 TAG = null;
                 n = 4;
                 break;
+
+            case 5:
+                fragment = new FragmentHelp();
+                TAG = null;
+                break;
             default:
                 fragment = new FragmentOne();
                 TAG = "HOME";
@@ -206,6 +216,10 @@ public class MainActivity extends ActionBarActivity {
                 setTitle(listSlide.get(0).getTitle());
                 break;
             case 4:
+                pindahFragment(0);
+                setTitle(listSlide.get(0).getTitle());
+                break;
+            case 5:
                 pindahFragment(0);
                 setTitle(listSlide.get(0).getTitle());
                 break;

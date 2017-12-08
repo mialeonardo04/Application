@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/menuItem1"
-        android:title="Settings" />
+        android:title="Help" />
 
     <item
         android:id="@+id/menuItem3"
