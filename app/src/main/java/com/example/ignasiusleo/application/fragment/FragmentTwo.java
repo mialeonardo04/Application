@@ -3,6 +3,7 @@ package com.example.ignasiusleo.application.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.ignasiusleo.application.R;
+import com.example.ignasiusleo.application.model.DataHelper;
 
 import info.vividcode.android.zxing.CaptureActivity;
 import info.vividcode.android.zxing.CaptureActivityIntents;
@@ -20,6 +22,9 @@ import info.vividcode.android.zxing.CaptureActivityIntents;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentTwo extends Fragment {
+
+    protected Cursor cursor;
+    DataHelper dbCenter = new DataHelper(getActivity());
 
     public FragmentTwo() {
         // Required empty public constructor
@@ -51,6 +56,13 @@ public class FragmentTwo extends Fragment {
         if (requestCode == 0){
             if (resultCode == Activity.RESULT_OK && data != null){
                 String val = data.getStringExtra("SCAN_RESULT");
+
+                /*SQLiteDatabase db = dbCenter.getReadableDatabase();
+                String sql = "SELECT * FROM barang, stock WHERE stock.id_stock = '"+
+                        val+"' AND barang.id_barang = stock.id_barang";
+                cursor = db.rawQuery(sql,null);
+                cursor.moveToFirst();
+                */
 
                 FragmentTransaksi fragmentTransaksi = new FragmentTransaksi();
                 Bundle bundle = new Bundle();
