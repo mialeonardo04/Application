@@ -44,7 +44,7 @@ public class DataHelper extends SQLiteOpenHelper {
             "FOREIGN KEY(id_barang) REFERENCES " + TABEL_BARANG + "(id_barang)" +
             ");";
     private static final String CREATE_TABEL_TRANSAKSI = "CREATE TABLE " + TABEL_TRANSAKSI + " (" +
-            "id_transaksi INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+            "id_transaksi INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "jumlah INTEGER " +
             ");";
     protected Cursor cursor;
