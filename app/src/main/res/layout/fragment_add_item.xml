@@ -19,14 +19,6 @@
 
 
         <EditText
-            android:id="@+id/id_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="ID ITEM"
-            android:text="" />
-
-        <EditText
             android:id="@+id/nama_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
