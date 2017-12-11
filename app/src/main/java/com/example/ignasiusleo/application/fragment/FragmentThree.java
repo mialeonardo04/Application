@@ -100,7 +100,6 @@ public class FragmentThree extends Fragment {
         for (int j = 0; j < cursor2.getCount(); j++) {
             cursor2.moveToPosition(j);
             daftarId2[j] = cursor2.getString(0);
-            daftarNama2[j] = cursor2.getString(1);
         }
 
         ListView01.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, daftarNama));
@@ -109,6 +108,7 @@ public class FragmentThree extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView arg0, View arg1, final int arg2, long arg3) {
                 final String selection = daftarId[arg2];
+                //final String selection2 = daftarId2[arg2];
                 final CharSequence[] dialogItem = {"Edit", "Delete"};
                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
                 builder.setTitle("Options");
@@ -132,8 +132,10 @@ public class FragmentThree extends Fragment {
                             case 1:
 
                                 SQLiteDatabase database = dbCenter.getWritableDatabase();
-                                database.execSQL("DELETE FROM barang where id_barang ='" + selection + "';");
-                                database.execSQL("DELETE FROM stock where id_stock ='" + args + "' AND id_barang = '" + selection + "';");
+                                String query = "DELETE FROM stock WHERE id_barang = '" + selection + "';";
+                                String query2 = "DELETE FROM barang WHERE id_barang = '" + selection + "';";
+                                database.execSQL(query);
+                                database.execSQL(query2);
 
                                 BlankFragment blank = new BlankFragment();
                                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
