@@ -38,6 +38,7 @@ public class FragmentTwo extends Fragment {
     TableRow tr;
     String scanResult = null;
     String[] daftarid, daftarnama, daftarharga;
+
     public FragmentTwo() {
         // Required empty public constructor
     }
@@ -80,11 +81,11 @@ public class FragmentTwo extends Fragment {
                 nama = new TextView(getActivity());
                 harga = new TextView(getActivity());
 
-
+                //3 baris setelah komen ini buat ngerefresh database nya
                 ma = this;
                 dbCenter = new DataHelper(getActivity());
-
                 RefreshList();
+                //yg diatas paling penting bro
 
                 id.setText(Arrays.toString(daftarid).replaceAll("\\[|\\]", ""));
                 id.setTextSize(15);
@@ -103,7 +104,6 @@ public class FragmentTwo extends Fragment {
                 tr.addView(harga);
 
                 tl.addView(tr);
-
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Toast.makeText(getContext(), "Scanning incompleted, please try again!", Toast.LENGTH_SHORT).show();
