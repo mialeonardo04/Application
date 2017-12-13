@@ -13,9 +13,9 @@ import com.example.ignasiusleo.application.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentOne extends Fragment {
+public class FragmentHome extends Fragment {
 
-    public FragmentOne() {
+    public FragmentHome() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class FragmentOne extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_one, container, false);
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
         ImageButton transaksi = v.findViewById(R.id.transaction);
         ImageButton barang = v.findViewById(R.id.inventory);
         /*ImageButton pegawai = v.findViewById(R.id.pegawai);*/
@@ -36,7 +36,7 @@ public class FragmentOne extends Fragment {
                 android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                FragmentTwo secondFragment = new FragmentTwo();
+                FragmentTrans secondFragment = new FragmentTrans();
                 fragmentTransaction.replace(R.id.main_content, secondFragment);
                 fragmentTransaction.commit();
 
@@ -49,7 +49,7 @@ public class FragmentOne extends Fragment {
                 android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                FragmentThree thirdFragment = new FragmentThree();
+                FragmentInventory thirdFragment = new FragmentInventory();
 
                 fragmentTransaction.replace(R.id.main_content, thirdFragment);
                 fragmentTransaction.commit();
@@ -63,9 +63,9 @@ public class FragmentOne extends Fragment {
                 android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                FragmentFive fragmentFive = new FragmentFive();
+                FragmentReport fragmentReport = new FragmentReport();
 
-                fragmentTransaction.replace(R.id.main_content, fragmentFive);
+                fragmentTransaction.replace(R.id.main_content, fragmentReport);
                 fragmentTransaction.commit();
             }
         });

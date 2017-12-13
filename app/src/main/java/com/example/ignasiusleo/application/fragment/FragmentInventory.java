@@ -24,8 +24,8 @@ import com.example.ignasiusleo.application.model.DataHelper;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentThree extends Fragment {
-    public static FragmentThree fragmentThree;
+public class FragmentInventory extends Fragment {
+    public static FragmentInventory fragmentInventory;
     protected Cursor cursor, cursor2;
     String[] daftarNama, daftarId, daftarNama2, daftarId2;
     ListView ListView01;
@@ -33,7 +33,7 @@ public class FragmentThree extends Fragment {
     String args = null;
     private TextView id;
 
-    public FragmentThree() {
+    public FragmentInventory() {
         // Required empty public constructor
     }
 
@@ -42,7 +42,7 @@ public class FragmentThree extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_three, container, false);
+        View v = inflater.inflate(R.layout.fragment_inventory, container, false);
         ListView01 = v.findViewById(R.id.listView1);
 
         Button addStock = v.findViewById(R.id.addNewStock);
@@ -71,7 +71,7 @@ public class FragmentThree extends Fragment {
         });
 
         dbCenter = new DataHelper(getActivity());
-        fragmentThree = this;
+        fragmentInventory = this;
         RefreshList();
         return v;
     }

@@ -14,10 +14,10 @@ import com.example.ignasiusleo.application.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentFive extends Fragment {
+public class FragmentReport extends Fragment {
 
 
-    public FragmentFive() {
+    public FragmentReport() {
         // Required empty public constructor
     }
 
@@ -26,7 +26,7 @@ public class FragmentFive extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_five, container, false);
+        View v = inflater.inflate(R.layout.fragment_report, container, false);
         Spinner spinner = v.findViewById(R.id.month);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.month, android.R.layout.simple_spinner_item);

@@ -28,9 +28,9 @@ import info.vividcode.android.zxing.CaptureActivityIntents;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentTwo extends Fragment {
+public class FragmentTrans extends Fragment {
 
-    public static FragmentTwo ma;
+    public static FragmentTrans ma;
     protected Cursor cursor;
     DataHelper dbCenter = new DataHelper(getActivity());
     TextView id, nama, harga;
@@ -39,7 +39,7 @@ public class FragmentTwo extends Fragment {
     String scanResult = null;
     String[] daftaridstock, daftarnama, daftarharga;
 
-    public FragmentTwo() {
+    public FragmentTrans() {
         // Required empty public constructor
     }
 
@@ -48,7 +48,7 @@ public class FragmentTwo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_two, container, false);
+        View v = inflater.inflate(R.layout.fragment_trans, container, false);
         tl = v.findViewById(R.id.tl1);
         tl.setColumnStretchable(0, true);
         tl.setColumnStretchable(1, true);

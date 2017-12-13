@@ -194,7 +194,7 @@ public class FragmentAddStock extends Fragment {
 
 
     private void pindahFragment() {
-        Fragment fragment3 = new FragmentThree();
+        Fragment fragment3 = new FragmentInventory();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_content, fragment3);

@@ -15,11 +15,11 @@ import android.widget.RelativeLayout;
 import com.example.ignasiusleo.application.adapter.SlidingMenuAdapter;
 import com.example.ignasiusleo.application.dialog.CustomDialogClass;
 import com.example.ignasiusleo.application.fragment.FragmentAbout;
-import com.example.ignasiusleo.application.fragment.FragmentFive;
 import com.example.ignasiusleo.application.fragment.FragmentHelp;
-import com.example.ignasiusleo.application.fragment.FragmentOne;
-import com.example.ignasiusleo.application.fragment.FragmentThree;
-import com.example.ignasiusleo.application.fragment.FragmentTwo;
+import com.example.ignasiusleo.application.fragment.FragmentHome;
+import com.example.ignasiusleo.application.fragment.FragmentInventory;
+import com.example.ignasiusleo.application.fragment.FragmentReport;
+import com.example.ignasiusleo.application.fragment.FragmentTrans;
 import com.example.ignasiusleo.application.model.ItemSlideMenu;
 
 import java.util.ArrayList;
@@ -150,22 +150,22 @@ public class MainActivity extends ActionBarActivity {
 
         switch (i){
             case  0:
-                fragment = new FragmentOne();
+                fragment = new FragmentHome();
                 TAG = "HOME";
                 n = 0;
                 break;
             case  1:
-                fragment = new FragmentTwo();
+                fragment = new FragmentTrans();
                 TAG = null;
                 n =1;
                 break;
             case  2:
-                fragment = new FragmentThree();
+                fragment = new FragmentInventory();
                 TAG = null;
                 n=2;
                 break;
             case 3:
-                fragment = new FragmentFive();
+                fragment = new FragmentReport();
                 TAG = null;
                 n =3;
                 break;
@@ -180,7 +180,7 @@ public class MainActivity extends ActionBarActivity {
                 TAG = null;
                 break;
             default:
-                fragment = new FragmentOne();
+                fragment = new FragmentHome();
                 TAG = "HOME";
                 n=0;
                 break;

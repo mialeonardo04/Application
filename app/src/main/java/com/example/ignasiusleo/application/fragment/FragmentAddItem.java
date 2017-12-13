@@ -44,7 +44,7 @@ public class FragmentAddItem extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment3 = new FragmentThree();
+                Fragment fragment3 = new FragmentInventory();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.main_content, fragment3);
@@ -85,8 +85,8 @@ public class FragmentAddItem extends Fragment {
     }
 
     private void pindahFragment() {
-        FragmentThree.fragmentThree.RefreshList();
-        Fragment back = new FragmentThree();
+        FragmentInventory.fragmentInventory.RefreshList();
+        Fragment back = new FragmentInventory();
         FragmentManager manager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.main_content, back).addToBackStack(null).commit();
