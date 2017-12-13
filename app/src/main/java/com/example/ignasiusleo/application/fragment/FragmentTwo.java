@@ -37,7 +37,7 @@ public class FragmentTwo extends Fragment {
     TableLayout tl;
     TableRow tr;
     String scanResult = null;
-    String[] daftarid, daftarnama, daftarharga;
+    String[] daftaridstock, daftarnama, daftarharga;
 
     public FragmentTwo() {
         // Required empty public constructor
@@ -87,7 +87,7 @@ public class FragmentTwo extends Fragment {
                 RefreshList();
                 //yg diatas paling penting bro
 
-                id.setText(Arrays.toString(daftarid).replaceAll("\\[|\\]", ""));
+                id.setText(Arrays.toString(daftaridstock).replaceAll("\\[|\\]", ""));
                 id.setTextSize(15);
                 id.setGravity(Gravity.CENTER);
 
@@ -122,13 +122,13 @@ public class FragmentTwo extends Fragment {
         cursor = db.rawQuery(sql, null);
         cursor.moveToFirst();
 
-        daftarid = new String[cursor.getCount()];
+        daftaridstock = new String[cursor.getCount()];
         daftarnama = new String[cursor.getCount()];
         daftarharga = new String[cursor.getCount()];
 
         for (int r = 0; r < cursor.getCount(); r++) {
             cursor.moveToPosition(r);
-            daftarid[r] = cursor.getString(5);
+            daftaridstock[r] = cursor.getString(5);
             daftarnama[r] = cursor.getString(1);
             daftarharga[r] = cursor.getString(3);
         }
