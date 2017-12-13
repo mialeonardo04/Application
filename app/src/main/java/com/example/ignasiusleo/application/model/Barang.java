@@ -5,7 +5,7 @@ package com.example.ignasiusleo.application.model;
  */
 
 public class Barang {
-    private String id_barang;
+    private String id_stock;
     private String nama_barang;
     private int harga_barang;
     private int jumlah;
@@ -13,12 +13,12 @@ public class Barang {
     private String date_expired;
     private String et;
 
-    public String getId_barang() {
-        return id_barang;
+    public String getId_stock() {
+        return id_stock;
     }
 
-    public void setId_barang(String id_barang) {
-        this.id_barang = id_barang;
+    public void setId_stock(String id_stock) {
+        this.id_stock = id_stock;
     }
 
     public String getNama_barang() {
