@@ -33,7 +33,10 @@ public class FragmentTrans extends Fragment {
     public static FragmentTrans ma;
     protected Cursor cursor;
     DataHelper dbCenter = new DataHelper(getActivity());
-    TextView id, nama, harga;
+    TextView id, nama, harga, scr3, scr4, scr5;
+    Button btn1, btn2;
+    Boolean stat = null;
+    Integer rw = 0;
     TableLayout tl;
     TableRow tr;
     String scanResult = null;
@@ -53,6 +56,12 @@ public class FragmentTrans extends Fragment {
         tl.setColumnStretchable(0, true);
         tl.setColumnStretchable(1, true);
         tl.setColumnStretchable(2, true);
+        tl.setColumnStretchable(3, true);
+        tl.setColumnStretchable(4, true);
+        tl.setColumnStretchable(5, true);
+
+        btn1 = v.findViewById(R.id.btnMinus);
+        btn2 = v.findViewById(R.id.btnPlus);
 
         Button btnScan = v.findViewById(R.id.bt_scan);
         btnScan.setOnClickListener(new View.OnClickListener() {
@@ -73,38 +82,15 @@ public class FragmentTrans extends Fragment {
         if (requestCode == 0){
             if (resultCode == Activity.RESULT_OK && data != null){
                 String val = data.getStringExtra("SCAN_RESULT");
-
                 scanResult = val;
-
-                tr = new TableRow(getActivity());
-                id = new TextView(getActivity());
-                nama = new TextView(getActivity());
-                harga = new TextView(getActivity());
-
-                //3 baris setelah komen ini buat ngerefresh database nya
-                ma = this;
-                dbCenter = new DataHelper(getActivity());
-                RefreshList();
-                //yg diatas paling penting bro
-
-                id.setText(Arrays.toString(daftaridstock).replaceAll("\\[|\\]", ""));
-                id.setTextSize(15);
-                id.setGravity(Gravity.CENTER);
-
-                nama.setText(Arrays.toString(daftarnama).replaceAll("\\[|\\]", ""));
-                nama.setTextSize(15);
-                nama.setGravity(Gravity.CENTER);
-
-                harga.setText(Arrays.toString(daftarharga).replaceAll("\\[|\\]", ""));
-                harga.setTextSize(15);
-                harga.setGravity(Gravity.CENTER);
-
-                tr.addView(id);
-                tr.addView(nama);
-                tr.addView(harga);
-
-                tl.addView(tr);
-
+                if (rw == 0) {
+                    newRow();
+                    rw++;
+                } else {
+                    scr5.setEnabled(false);
+                    scr4.setEnabled(false);
+                    newRow();
+                }
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Toast.makeText(getContext(), "Scanning incompleted, please try again!", Toast.LENGTH_SHORT).show();
             }
@@ -113,6 +99,79 @@ public class FragmentTrans extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    public void newRow() {
+        int i = 0;
+
+        tr = new TableRow(getActivity());
+        id = new TextView(getActivity());
+        nama = new TextView(getActivity());
+        harga = new TextView(getActivity());
+        scr3 = new TextView(getActivity());
+        scr4 = new Button(getActivity());
+        scr5 = new Button(getActivity());
+
+        //3 baris setelah komen ini buat ngerefresh database nya
+        ma = this;
+        dbCenter = new DataHelper(getActivity());
+        RefreshList();
+        //yg diatas paling penting bro
+
+        id.setText(Arrays.toString(daftaridstock).replaceAll("\\[|\\]", ""));
+        id.setTextSize(15);
+        id.setGravity(Gravity.CENTER);
+
+        nama.setText(Arrays.toString(daftarnama).replaceAll("\\[|\\]", ""));
+        nama.setTextSize(15);
+        nama.setGravity(Gravity.CENTER);
+
+        harga.setText(Arrays.toString(daftarharga).replaceAll("\\[|\\]", ""));
+        harga.setTextSize(15);
+        harga.setGravity(Gravity.CENTER);
+
+        scr3.setText("1");
+        scr3.setTextSize(15);
+        scr3.setId(i);
+        scr3.setGravity(Gravity.CENTER);
+
+        scr4.setText("-");
+        scr4.setId(R.id.btnMinus);
+        scr4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Integer.parseInt(scr3.getText().toString()) > 1) {
+                    Integer i = Integer.parseInt(scr3.getText().toString()) - 1;
+                    scr3.setText(i.toString());
+                } else {
+                    Toast.makeText(getActivity(), "Tidak bisa dikurangi", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        scr5.setText("+");
+        scr5.setId(i);
+        scr5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Integer.parseInt(scr3.getText().toString()) > 0) {
+                    Integer i = Integer.parseInt(scr3.getText().toString()) + 1;
+                    scr3.setText(i.toString());
+                }
+            }
+        });
+
+        if (stat) {
+            tr.addView(id);
+            tr.addView(nama);
+            tr.addView(harga);
+            tr.addView(scr3);
+            tr.addView(scr4);
+            tr.addView(scr5);
+
+            tl.addView(tr);
+        } else {
+            Toast.makeText(getActivity(), "Barang tidak ditemukan, tolong masukkan data barang!", Toast.LENGTH_LONG).show();
+        }
+
+    }
 
     public void RefreshList() {
         SQLiteDatabase db = dbCenter.getReadableDatabase();
@@ -121,16 +180,21 @@ public class FragmentTrans extends Fragment {
 
         cursor = db.rawQuery(sql, null);
         cursor.moveToFirst();
+        if (cursor.getCount() != 0) {
+            daftaridstock = new String[cursor.getCount()];
+            daftarnama = new String[cursor.getCount()];
+            daftarharga = new String[cursor.getCount()];
 
-        daftaridstock = new String[cursor.getCount()];
-        daftarnama = new String[cursor.getCount()];
-        daftarharga = new String[cursor.getCount()];
-
-        for (int r = 0; r < cursor.getCount(); r++) {
-            cursor.moveToPosition(r);
-            daftaridstock[r] = cursor.getString(5);
-            daftarnama[r] = cursor.getString(1);
-            daftarharga[r] = cursor.getString(3);
+            for (int r = 0; r < cursor.getCount(); r++) {
+                cursor.moveToPosition(r);
+                daftaridstock[r] = cursor.getString(5);
+                daftarnama[r] = cursor.getString(1);
+                daftarharga[r] = cursor.getString(3);
+            }
+            stat = true;
+        } else {
+            stat = false;
         }
+
     }
 }
