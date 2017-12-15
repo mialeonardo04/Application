@@ -30,6 +30,7 @@ import info.vividcode.android.zxing.CaptureActivityIntents;
  */
 public class FragmentTrans extends Fragment {
 
+
     public static FragmentTrans ma;
     protected Cursor cursor;
     DataHelper dbCenter = new DataHelper(getActivity());
@@ -67,7 +68,7 @@ public class FragmentTrans extends Fragment {
         btnScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent capture = new Intent(getContext(),CaptureActivity.class);
+                Intent capture = new Intent(getActivity(), CaptureActivity.class);
                 CaptureActivityIntents.setPromptMessage(capture,"Scanning");
                 startActivityForResult(capture,0);
             }
