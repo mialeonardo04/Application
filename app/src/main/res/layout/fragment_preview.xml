@@ -70,11 +70,12 @@
                 android:layout_weight="1"
                 android:text="Name" />
 
-            <TextView
+            <EditText
                 android:id="@+id/nama_barang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:enabled="false" />
         </LinearLayout>
 
         <LinearLayout
@@ -90,11 +91,12 @@
                 android:layout_weight="1"
                 android:text="Qty" />
 
-            <TextView
+            <EditText
                 android:id="@+id/jml_barang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:enabled="false" />
         </LinearLayout>
 
         <LinearLayout
@@ -110,11 +112,12 @@
                 android:layout_weight="1"
                 android:text="Price" />
 
-            <TextView
+            <EditText
                 android:id="@+id/hrg_barang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:enabled="false" />
         </LinearLayout>
 
         <LinearLayout
@@ -130,11 +133,12 @@
                 android:layout_weight="1"
                 android:text="Arrived" />
 
-            <TextView
+            <EditText
                 android:id="@+id/tgl_dtg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:enabled="false" />
         </LinearLayout>
 
         <LinearLayout
@@ -150,11 +154,43 @@
                 android:layout_weight="1"
                 android:text="Expired" />
 
-            <TextView
+            <EditText
                 android:id="@+id/tgl_exp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:enabled="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/setEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="20dp"
+                android:height="10dp"
+                android:text="edit"
+                android:textSize="8sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/saveEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="20dp"
+                android:height="10dp"
+                android:enabled="false"
+                android:text="save"
+                android:textSize="8sp" />
+
         </LinearLayout>
 
     </LinearLayout>

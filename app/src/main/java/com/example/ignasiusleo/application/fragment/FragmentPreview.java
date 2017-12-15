@@ -9,6 +9,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,8 +23,10 @@ import com.example.ignasiusleo.application.model.DataHelper;
 public class FragmentPreview extends Fragment {
     protected Cursor cursor1, cursor2;
     protected String args1, args2;
+    Button save, setEdit;
     DataHelper dbHelper;
-    TextView id_stock, id_barang, nama_barang, qty, harga, tgl_dtg, tgl_exp;
+    TextView id_stock, id_barang;
+    EditText nama_barang, qty, harga, tgl_dtg, tgl_exp;
     public FragmentPreview() {
         // Required empty public constructor
     }
@@ -41,7 +45,20 @@ public class FragmentPreview extends Fragment {
         harga = v.findViewById(R.id.hrg_barang);
         tgl_dtg = v.findViewById(R.id.tgl_dtg);
         tgl_exp = v.findViewById(R.id.tgl_exp);
-
+        save = v.findViewById(R.id.saveEdit);
+        setEdit = v.findViewById(R.id.setEdit);
+        setEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nama_barang.setEnabled(true);
+                qty.setEnabled(true);
+                harga.setEnabled(true);
+                tgl_dtg.setEnabled(true);
+                tgl_exp.setEnabled(true);
+                save.setEnabled(true);
+                setEdit.setEnabled(false);
+            }
+        });
         Bundle bundle = this.getArguments();
         dbHelper = new DataHelper(getActivity());
         if (bundle != null) {
