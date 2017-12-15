@@ -85,7 +85,7 @@ public class FragmentAddItem extends Fragment {
     }
 
     private void pindahFragment() {
-        FragmentInventory.fragmentInventory.RefreshList();
+        FragmentInventory.fi.RefreshList();
         Fragment back = new FragmentInventory();
         FragmentManager manager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();

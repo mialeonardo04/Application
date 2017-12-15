@@ -25,7 +25,7 @@ import com.example.ignasiusleo.application.model.DataHelper;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentInventory extends Fragment {
-    public static FragmentInventory fragmentInventory;
+    public static FragmentInventory fi;
     protected Cursor cursor, cursor2;
     String[] daftarNama, daftarId, daftarNama2, daftarId2;
     ListView ListView01;
@@ -71,7 +71,7 @@ public class FragmentInventory extends Fragment {
         });
 
         dbCenter = new DataHelper(getActivity());
-        fragmentInventory = this;
+        fi = this;
         RefreshList();
         return v;
     }
@@ -109,7 +109,7 @@ public class FragmentInventory extends Fragment {
             public boolean onItemLongClick(AdapterView arg0, View arg1, final int arg2, long arg3) {
                 final String selection = daftarId[arg2];
                 //final String selection2 = daftarId2[arg2];
-                final CharSequence[] dialogItem = {"Edit", "Delete"};
+                final CharSequence[] dialogItem = {"Delete"};
                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
                 builder.setTitle("Options");
                 builder.setItems(dialogItem, new DialogInterface.OnClickListener() {
@@ -118,19 +118,6 @@ public class FragmentInventory extends Fragment {
                         Bundle bundle = new Bundle();
                         switch (item) {
                             case 0:
-                                Fragment edit = new FragmentEditStock();
-                                bundle.putString("id", selection);
-                                edit.setArguments(bundle);
-
-                                FragmentManager fragmentManager2 = getActivity().getSupportFragmentManager();
-                                FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
-                                fragmentTransaction2.replace(R.id.main_content, edit);
-                                fragmentTransaction2.addToBackStack(null);
-                                fragmentTransaction2.commit();
-                                break;
-
-                            case 1:
-
                                 SQLiteDatabase database = dbCenter.getWritableDatabase();
                                 String query = "DELETE FROM stock WHERE id_barang = '" + selection + "';";
                                 String query2 = "DELETE FROM barang WHERE id_barang = '" + selection + "';";

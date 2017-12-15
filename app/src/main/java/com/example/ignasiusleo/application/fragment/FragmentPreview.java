@@ -46,17 +46,17 @@ public class FragmentPreview extends Fragment {
         tgl_dtg = v.findViewById(R.id.tgl_dtg);
         tgl_exp = v.findViewById(R.id.tgl_exp);
         save = v.findViewById(R.id.saveEdit);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveUpdate();
+            }
+        });
         setEdit = v.findViewById(R.id.setEdit);
         setEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                nama_barang.setEnabled(true);
-                qty.setEnabled(true);
-                harga.setEnabled(true);
-                tgl_dtg.setEnabled(true);
-                tgl_exp.setEnabled(true);
-                save.setEnabled(true);
-                setEdit.setEnabled(false);
+                modeEditable();
             }
         });
         Bundle bundle = this.getArguments();
@@ -98,6 +98,50 @@ public class FragmentPreview extends Fragment {
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return v;
+    }
+
+    public void saveUpdate() {
+        try {
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            String queryBarang = "UPDATE barang SET nama_barang ='" +
+                    nama_barang.getText().toString() + "', jumlah = '" +
+                    qty.getText().toString() + "', harga_barang = '" +
+                    harga.getText().toString() + "' WHERE id_barang = '" +
+                    id_barang.getText().toString() + "'";
+            String queryStock = "UPDATE stock SET tgl_datang ='" +
+                    tgl_dtg.getText().toString() + "', tgl_kadaluarsa = '" +
+                    tgl_exp.getText().toString() + "' WHERE id_barang = '" +
+                    id_barang.getText().toString() + "' AND id_stock = '" +
+                    id_stock.getText().toString() + "'";
+            db.execSQL(queryBarang);
+            db.execSQL(queryStock);
+            Toast.makeText(getActivity(), "data Updated", Toast.LENGTH_SHORT).show();
+            FragmentInventory.fi.RefreshList();
+        } catch (SQLiteException e) {
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        modeFixed();
+
+    }
+
+    public void modeEditable() {
+        nama_barang.setEnabled(true);
+        qty.setEnabled(true);
+        harga.setEnabled(true);
+        tgl_dtg.setEnabled(true);
+        tgl_exp.setEnabled(true);
+        save.setEnabled(true);
+        setEdit.setEnabled(false);
+    }
+
+    public void modeFixed() {
+        nama_barang.setEnabled(false);
+        qty.setEnabled(false);
+        harga.setEnabled(false);
+        tgl_dtg.setEnabled(false);
+        tgl_exp.setEnabled(false);
+        save.setEnabled(false);
+        setEdit.setEnabled(true);
     }
 
 }
