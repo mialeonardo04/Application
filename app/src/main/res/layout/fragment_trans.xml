@@ -14,7 +14,21 @@
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="0.1" />
+            android:layout_weight="0.05" />
+
+        <TextView
+            android:id="@+id/txtTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#0000FF"
+            android:textSize="50px" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.05" />
+
 
         <Button
             android:id="@+id/bt_scan"
@@ -35,12 +49,6 @@
             android:layout_height="wrap_content"
             android:text="coba"
             android:visibility="invisible" />
-
-        <Button
-            android:id="@+id/bt_total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="hasil" />
     </LinearLayout>
 
     <ScrollView
@@ -117,4 +125,33 @@
             </TableLayout>
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+
+        <Button
+            android:id="@+id/bt_bayar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="payment" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.01" />
+
+        <Button
+            android:id="@+id/bt_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="sum Price" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.1" />
+    </LinearLayout>
 </LinearLayout>

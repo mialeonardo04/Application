@@ -35,7 +35,7 @@ public class FragmentTrans extends Fragment {
     public static FragmentTrans ma;
     protected Cursor cursor;
     DataHelper dbCenter = new DataHelper(getActivity());
-    TextView id, nama, harga, scr3, scr4, scr5, txt;
+    TextView id, nama, harga, scr3, scr4, scr5, txt, txtTotal;
     Button btn1, btn2, submit, hsl;
     Boolean stat = null;
     Integer rw = 0;
@@ -63,6 +63,7 @@ public class FragmentTrans extends Fragment {
         tl.setColumnStretchable(4, true);
         tl.setColumnStretchable(5, true);
 
+        txtTotal = v.findViewById(R.id.txtTotal);
         txt = v.findViewById(R.id.ceng);
         btn1 = v.findViewById(R.id.btnMinus);
         btn2 = v.findViewById(R.id.btnPlus);
@@ -92,7 +93,9 @@ public class FragmentTrans extends Fragment {
                 for (int i = 0; i < sum.size(); i++) {
                     cek += (int) sum.get(i);
                 }
-                Toast.makeText(getActivity(), String.valueOf(cek), Toast.LENGTH_LONG).show();
+                String tv = String.valueOf(cek);
+                txtTotal.setText("Total: Rp." + tv + ",-");
+                //Toast.makeText(getActivity(), String.valueOf(cek), Toast.LENGTH_LONG).show();
             }
         });
 
