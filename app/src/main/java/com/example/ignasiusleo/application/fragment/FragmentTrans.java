@@ -2,6 +2,7 @@ package com.example.ignasiusleo.application.fragment;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -36,7 +37,7 @@ public class FragmentTrans extends Fragment {
     protected Cursor cursor;
     DataHelper dbCenter = new DataHelper(getActivity());
     TextView id, nama, harga, scr3, scr4, scr5, txt, txtTotal;
-    Button btn1, btn2, submit, hsl;
+    Button btn1, btn2, submit, hsl, byr;
     Boolean stat = null;
     Integer rw = 0;
     TableLayout tl;
@@ -69,6 +70,7 @@ public class FragmentTrans extends Fragment {
         btn2 = v.findViewById(R.id.btnPlus);
         submit = v.findViewById(R.id.bt_submit);
         hsl = v.findViewById(R.id.bt_total);
+        byr = v.findViewById(R.id.bt_bayar);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,8 +96,19 @@ public class FragmentTrans extends Fragment {
                     cek += (int) sum.get(i);
                 }
                 String tv = String.valueOf(cek);
-                txtTotal.setText("Total: Rp." + tv + ",-");
+                txtTotal.setText("Total: Rp. " + tv + ",-");
                 //Toast.makeText(getActivity(), String.valueOf(cek), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        byr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog builder = new AlertDialog.Builder(getActivity())
+                        .create();
+                builder.setTitle("Anda harus membayar");
+                builder.setMessage(txtTotal.getText().toString());
+                builder.show();
             }
         });
 
