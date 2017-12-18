@@ -38,10 +38,11 @@ public class DataHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABEL_PENJUALAN = "CREATE TABLE " + TABEL_PENJUALAN + " (" +
             "id_transaksi INTEGER , " +
             "id_barang INTEGER , " +
-            "jumlah INTEGER, " +
-            "tgl_kadaluarsa VARCHAR (100)," +
+            "id_stock VARCHAR (100)," +
+            "jumlah_keluar INTEGER, " +
             "FOREIGN KEY(id_transaksi) REFERENCES " + TABEL_TRANSAKSI + "(id_transaksi)," +
-            "FOREIGN KEY(id_barang) REFERENCES " + TABEL_BARANG + "(id_barang)" +
+            "FOREIGN KEY(id_barang) REFERENCES " + TABEL_BARANG + "(id_barang)," +
+            "FOREIGN KEY(id_stock) REFERENCES " + TABEL_STOCK + "(id_stock)" +
             ");";
     private static final String CREATE_TABEL_TRANSAKSI = "CREATE TABLE " + TABEL_TRANSAKSI + " (" +
             "id_transaksi INTEGER PRIMARY KEY AUTOINCREMENT, " +
