@@ -45,7 +45,8 @@ public class DataHelper extends SQLiteOpenHelper {
             ");";
     private static final String CREATE_TABEL_TRANSAKSI = "CREATE TABLE " + TABEL_TRANSAKSI + " (" +
             "id_transaksi INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "jumlah INTEGER " +
+            "total_harga INTEGER, " +
+            "tgl_transaksi VARCHAR(100)" +
             ");";
     protected Cursor cursor;
     public DataHelper(Context context) {

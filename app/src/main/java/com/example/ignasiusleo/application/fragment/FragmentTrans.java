@@ -73,11 +73,11 @@ public class FragmentTrans extends Fragment {
             @Override
             public void onClick(View view) {
                 txt = (TextView) tr.getChildAt(2);
-                Integer ceng = Integer.parseInt(txt.getText().toString());
+                Integer price = Integer.parseInt(txt.getText().toString());
                 txt = (TextView) tr.getChildAt(3);
-                Integer ceng2 = Integer.parseInt(txt.getText().toString());
+                Integer qty = Integer.parseInt(txt.getText().toString());
 
-                hasil = ceng * ceng2;
+                hasil = price * qty;
                 sum.add(hasil);
                 submit.setEnabled(false);
                 scr4.setEnabled(false);
