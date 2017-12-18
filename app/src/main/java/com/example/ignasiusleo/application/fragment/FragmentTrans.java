@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.ignasiusleo.application.R;
 import com.example.ignasiusleo.application.model.DataHelper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import info.vividcode.android.zxing.CaptureActivity;
@@ -34,15 +35,16 @@ public class FragmentTrans extends Fragment {
     public static FragmentTrans ma;
     protected Cursor cursor;
     DataHelper dbCenter = new DataHelper(getActivity());
-    TextView id, nama, harga, scr3, scr4, scr5;
-    Button btn1, btn2;
+    TextView id, nama, harga, scr3, scr4, scr5, txt;
+    Button btn1, btn2, submit, hsl;
     Boolean stat = null;
     Integer rw = 0;
     TableLayout tl;
     TableRow tr;
+    Integer hasil = 0;
     String scanResult = null;
     String[] daftaridstock, daftarnama, daftarharga;
-
+    ArrayList sum = new ArrayList();
     public FragmentTrans() {
         // Required empty public constructor
     }
@@ -61,8 +63,38 @@ public class FragmentTrans extends Fragment {
         tl.setColumnStretchable(4, true);
         tl.setColumnStretchable(5, true);
 
+        txt = v.findViewById(R.id.ceng);
         btn1 = v.findViewById(R.id.btnMinus);
         btn2 = v.findViewById(R.id.btnPlus);
+        submit = v.findViewById(R.id.bt_submit);
+        hsl = v.findViewById(R.id.bt_total);
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txt = (TextView) tr.getChildAt(2);
+                Integer ceng = Integer.parseInt(txt.getText().toString());
+                txt = (TextView) tr.getChildAt(3);
+                Integer ceng2 = Integer.parseInt(txt.getText().toString());
+
+                hasil = ceng * ceng2;
+                sum.add(hasil);
+                submit.setEnabled(false);
+                scr4.setEnabled(false);
+                scr5.setEnabled(false);
+            }
+        });
+
+        hsl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int cek = 0;
+                for (int i = 0; i < sum.size(); i++) {
+                    cek += (int) sum.get(i);
+                }
+                Toast.makeText(getActivity(), String.valueOf(cek), Toast.LENGTH_LONG).show();
+            }
+        });
 
         Button btnScan = v.findViewById(R.id.bt_scan);
         btnScan.setOnClickListener(new View.OnClickListener() {
@@ -193,8 +225,10 @@ public class FragmentTrans extends Fragment {
                 daftarharga[r] = cursor.getString(3);
             }
             stat = true;
+            submit.setEnabled(true);
         } else {
             stat = false;
+            submit.setEnabled(false);
         }
 
     }
