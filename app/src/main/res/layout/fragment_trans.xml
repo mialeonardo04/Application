@@ -136,6 +136,7 @@
             android:id="@+id/bt_bayar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:text="payment" />
 
         <View

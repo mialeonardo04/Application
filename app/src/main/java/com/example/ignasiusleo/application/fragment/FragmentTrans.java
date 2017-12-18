@@ -2,7 +2,7 @@ package com.example.ignasiusleo.application.fragment;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ public class FragmentTrans extends Fragment {
     TableLayout tl;
     TableRow tr;
     Integer hasil = 0;
+    String tvHrg, tvByr, tvCashBack = null;
     String scanResult = null;
     String[] daftaridstock, daftarnama, daftarharga;
     ArrayList sum = new ArrayList();
@@ -50,6 +52,41 @@ public class FragmentTrans extends Fragment {
         // Required empty public constructor
     }
 
+
+    protected void showDialog() {
+        Dialog dialog = new Dialog(getActivity());
+        dialog.setCancelable(true);
+
+        dialog.setTitle("MoKas v0.0.19");
+        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_payment, null);
+        dialog.setContentView(view);
+
+        TextView tvTotHarga = view.findViewById(R.id.total_harga);
+        final TextView tvKembali = view.findViewById(R.id.cashback);
+        final EditText etBayar = view.findViewById(R.id.cash);
+        Button submitPayment = view.findViewById(R.id.submit);
+
+        tvTotHarga.setText("Rp. " + tvHrg + ",-");
+
+
+        submitPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tvByr = etBayar.getText().toString();
+                Integer cash = Integer.parseInt(tvByr);
+                Integer sum = Integer.parseInt(tvHrg);
+                Integer hitung = cash - sum;
+                tvCashBack = String.valueOf(hitung);
+
+                tvKembali.setText(tvCashBack);
+                //Toast.makeText(getActivity(),tvByr,Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        dialog.show();
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,8 +132,9 @@ public class FragmentTrans extends Fragment {
                 for (int i = 0; i < sum.size(); i++) {
                     cek += (int) sum.get(i);
                 }
-                String tv = String.valueOf(cek);
-                txtTotal.setText("Total: Rp. " + tv + ",-");
+                tvHrg = String.valueOf(cek);
+                txtTotal.setText("Rp. " + tvHrg + ",-");
+                byr.setEnabled(true);
                 //Toast.makeText(getActivity(), String.valueOf(cek), Toast.LENGTH_LONG).show();
             }
         });
@@ -104,11 +142,13 @@ public class FragmentTrans extends Fragment {
         byr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog builder = new AlertDialog.Builder(getActivity())
+                /*AlertDialog builder = new AlertDialog.Builder(getActivity())
                         .create();
                 builder.setTitle("Anda harus membayar");
                 builder.setMessage(txtTotal.getText().toString());
-                builder.show();
+                builder.show();*/
+                showDialog();
+                byr.setEnabled(false);
             }
         });
 
