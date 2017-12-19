@@ -22,8 +22,12 @@ import android.widget.Toast;
 import com.example.ignasiusleo.application.R;
 import com.example.ignasiusleo.application.model.DataHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import info.vividcode.android.zxing.CaptureActivity;
 import info.vividcode.android.zxing.CaptureActivityIntents;
@@ -36,6 +40,7 @@ public class FragmentTrans extends Fragment {
 
     public static FragmentTrans ma;
     protected Cursor cursor;
+    Integer selisih;
     DataHelper dbCenter = new DataHelper(getActivity());
     TextView id, nama, harga, scr3, scr4, scr5, txt, txtTotal;
     Button btn1, btn2, submit, hsl, byr;
@@ -44,14 +49,16 @@ public class FragmentTrans extends Fragment {
     TableLayout tl;
     TableRow tr;
     Integer hasil = 0;
-    String tvHrg, tvByr, tvCashBack = null;
+    Integer qtyDB, qtyBeli;
+    String simpanIdBarang, simpanIdStock = null;
+    String tvHrg, tvByr, tvCashBack, s1, s2, s3, s4, s5, s6 = null;
     String scanResult = null;
-    String[] daftaridstock, daftarnama, daftarharga;
+    String[] daftaridstock, daftarnama, daftarharga, find, find2;
     ArrayList sum = new ArrayList();
+
     public FragmentTrans() {
         // Required empty public constructor
     }
-
 
     protected void showDialog() {
         Dialog dialog = new Dialog(getActivity());
@@ -79,6 +86,7 @@ public class FragmentTrans extends Fragment {
                 tvCashBack = String.valueOf(hitung);
 
                 tvKembali.setText(tvCashBack);
+                logTransaksi();
                 //Toast.makeText(getActivity(),tvByr,Toast.LENGTH_SHORT).show();
             }
         });
@@ -86,6 +94,88 @@ public class FragmentTrans extends Fragment {
 
         dialog.show();
 
+    }
+
+    public void prosesPembelian() {
+        //SQLiteDatabase dbWrite = dbCenter.getWritableDatabase();
+
+        SQLiteDatabase dbRead = dbCenter.getReadableDatabase();
+        txt = (TextView) tr.getChildAt(0);
+        String idStock = txt.getText().toString();
+        simpanIdStock = idStock;
+        String sql1 = "SELECT id_barang FROM stock WHERE id_stock = '" +
+                idStock + "';";
+
+        cursor = dbRead.rawQuery(sql1, null);
+        cursor.moveToFirst();
+        if (cursor.getCount() != 0) {
+            find = new String[cursor.getCount()];
+
+            for (int z = 0; z < cursor.getCount(); z++) {
+                cursor.moveToPosition(z);
+                find[z] = cursor.getString(0);
+
+            }
+
+        }
+        String hasilFind = Arrays.toString(find).replaceAll("\\[|\\]", "");
+        simpanIdBarang = hasilFind;
+        String sql2 = "SELECT jumlah FROM barang WHERE id_barang = '" +
+                hasilFind + "';";
+        cursor = dbRead.rawQuery(sql2, null);
+        cursor.moveToFirst();
+        if (cursor.getCount() != 0) {
+            find2 = new String[cursor.getCount()];
+
+            for (int hs = 0; hs < cursor.getCount(); hs++) {
+                cursor.moveToPosition(hs);
+                find2[hs] = cursor.getString(0);
+            }
+        }
+        String getJumlah = Arrays.toString(find2).replaceAll("\\[|\\]", "");
+        txt = (TextView) tr.getChildAt(3);
+        qtyDB = Integer.parseInt(getJumlah);
+        qtyBeli = Integer.parseInt(txt.getText().toString());
+        if (qtyBeli > qtyDB) {
+            if (qtyDB == 0) {
+                Toast.makeText(getActivity(), "Barang habis", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getActivity(), "Stock tidak cukup memenuhi pembelian", Toast.LENGTH_SHORT).show();
+                tl.removeView(tr);
+            }
+        } else {
+            Integer a = qtyDB - qtyBeli;
+            selisih = a;
+            String jmlUpdate = String.valueOf(selisih);
+            SQLiteDatabase dbWrite = dbCenter.getWritableDatabase();
+            String qUpdateJmlBrg = "UPDATE barang SET jumlah = '" +
+                    jmlUpdate + "' WHERE id_barang = '" +
+                    hasilFind + "';";
+            dbWrite.execSQL(qUpdateJmlBrg);
+            Toast.makeText(getActivity(), txt.getText().toString() + " barang terbeli", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void logTransaksi() {
+        SQLiteDatabase dbWrite = dbCenter.getWritableDatabase();
+        SQLiteDatabase dbRead = dbCenter.getReadableDatabase();
+
+        Date currentTime = Calendar.getInstance().getTime();
+        String format = "MM/dd/yy";
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
+        String dateNow = sdf.format(currentTime);
+        txt = (TextView) tr.getChildAt(3);
+
+
+        String insertPenjualan = "INSERT INTO penjualan(id_barang, id_stock, jumlah_keluar) values ('" +
+                simpanIdBarang + "', '" + simpanIdStock + "', '" + txt.getText().toString() + "' );";
+
+        String insertTransaksi = "INSERT INTO transaksi(total_harga, tgl_transaksi) values ('" +
+                tvHrg + "', '" + dateNow + "' );";
+
+        dbWrite.execSQL(insertTransaksi);
+        dbWrite.execSQL(insertPenjualan);
+        Toast.makeText(getActivity(), "Data Transaksi berhasil diinput", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -122,6 +212,7 @@ public class FragmentTrans extends Fragment {
                 submit.setEnabled(false);
                 scr4.setEnabled(false);
                 scr5.setEnabled(false);
+                prosesPembelian();
             }
         });
 
@@ -135,18 +226,13 @@ public class FragmentTrans extends Fragment {
                 tvHrg = String.valueOf(cek);
                 txtTotal.setText("Rp. " + tvHrg + ",-");
                 byr.setEnabled(true);
-                //Toast.makeText(getActivity(), String.valueOf(cek), Toast.LENGTH_LONG).show();
             }
         });
 
         byr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*AlertDialog builder = new AlertDialog.Builder(getActivity())
-                        .create();
-                builder.setTitle("Anda harus membayar");
-                builder.setMessage(txtTotal.getText().toString());
-                builder.show();*/
+
                 showDialog();
                 byr.setEnabled(false);
             }
