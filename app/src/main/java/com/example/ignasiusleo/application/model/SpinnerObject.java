@@ -21,10 +21,6 @@ public class SpinnerObject {
         return databaseId;
     }
 
-    public String getDatabaseValue() {
-        return databaseValue;
-    }
-
     @Override
     public String toString() {
         return databaseValue;
