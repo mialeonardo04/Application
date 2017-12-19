@@ -72,6 +72,25 @@ public class DataHelper extends SQLiteOpenHelper {
 
         return labels;
     }
+
+    public List<SpinnerObject> getAllMonth() {
+        List<SpinnerObject> labels = new ArrayList<SpinnerObject>();
+        String selectQ = "SELECT * FROM transaksi;";
+        SQLiteDatabase db = this.getReadableDatabase();
+        cursor = db.rawQuery(selectQ, null);
+
+
+        labels.add(new SpinnerObject("Select Month"));
+        if (cursor.moveToFirst()) {
+            do {
+                labels.add(new SpinnerObject(cursor.getInt(0), cursor.getString(2)));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        return labels;
+    }
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
