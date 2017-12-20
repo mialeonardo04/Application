@@ -3,6 +3,7 @@ package com.example.ignasiusleo.application.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,15 +53,25 @@ public class FragmentReport extends Fragment {
         getBulan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView adapterView, View view, int i, long l) {
-                getIdTrans = ((SpinnerObject) getBulan.getSelectedItem()).getDatabaseId();
-                String txtId = String.valueOf(getIdTrans);
-                txtIdTrans = txtId;
-                /*Bundle bundle = new Bundle();
-                bundle.putString("idTransaksi",txtIdTrans);*/
-                if (txtIdTrans.equals("0")) {
+                try {
+                    getIdTrans = ((SpinnerObject) getBulan.getSelectedItem()).getDatabaseId();
+                    String txtId = String.valueOf(getIdTrans);
+                    if (txtId != "0") {
+                        txtIdTrans = txtId;
+                        Bundle bundle = new Bundle();
+                        bundle.putString("idTransaksi", txtId);
+                        FragmentReportPreview f = new FragmentReportPreview();
+                        f.setArguments(bundle);
+                        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.frameLaporan, f);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    } else {
+                    }
 
-                } else {
-                    Toast.makeText(getActivity(), "id transaksi ke - " + txtIdTrans, Toast.LENGTH_SHORT).show();
+
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    Toast.makeText(getActivity(), "failed, restart your device", Toast.LENGTH_SHORT).show();
                 }
             }
 
