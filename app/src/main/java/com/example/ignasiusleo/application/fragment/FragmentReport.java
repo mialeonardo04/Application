@@ -6,8 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.ignasiusleo.application.R;
 import com.example.ignasiusleo.application.model.DataHelper;
@@ -19,8 +21,9 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentReport extends Fragment {
+    protected int getIdTrans;
+    protected String txtIdTrans;
     Spinner getBulan;
-
     public FragmentReport() {
         // Required empty public constructor
     }
@@ -46,6 +49,26 @@ public class FragmentReport extends Fragment {
         spinner.setAdapter(adapter);*/
         getBulan = v.findViewById(R.id.month);
         showSpinner();
+        getBulan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView adapterView, View view, int i, long l) {
+                getIdTrans = ((SpinnerObject) getBulan.getSelectedItem()).getDatabaseId();
+                String txtId = String.valueOf(getIdTrans);
+                txtIdTrans = txtId;
+                /*Bundle bundle = new Bundle();
+                bundle.putString("idTransaksi",txtIdTrans);*/
+                if (txtIdTrans.equals("0")) {
+
+                } else {
+                    Toast.makeText(getActivity(), "id transaksi ke - " + txtIdTrans, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                //im doing nothing wkwk
+            }
+        });
         return v;
     }
 
