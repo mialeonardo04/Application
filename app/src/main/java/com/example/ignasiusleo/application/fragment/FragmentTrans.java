@@ -61,7 +61,7 @@ public class FragmentTrans extends Fragment {
     }
 
     protected void showDialog() {
-        Dialog dialog = new Dialog(getActivity());
+        final Dialog dialog = new Dialog(getActivity());
         dialog.setCancelable(true);
 
         dialog.setTitle("MoKas v0.0.19");
@@ -87,6 +87,7 @@ public class FragmentTrans extends Fragment {
 
                 tvKembali.setText(tvCashBack);
                 logTransaksi();
+                dialog.dismiss();
                 //Toast.makeText(getActivity(),tvByr,Toast.LENGTH_SHORT).show();
             }
         });
