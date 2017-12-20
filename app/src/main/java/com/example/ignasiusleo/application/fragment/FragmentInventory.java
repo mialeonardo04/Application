@@ -45,18 +45,6 @@ public class FragmentInventory extends Fragment {
         View v = inflater.inflate(R.layout.fragment_inventory, container, false);
         ListView01 = v.findViewById(R.id.listView1);
 
-        /*Button addStock = v.findViewById(R.id.addNewStock);
-        addStock.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragmentAddStock = new FragmentAddStock();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.main_content, fragmentAddStock);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });*/
         Button addItem = v.findViewById(R.id.addNewBarang);
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override

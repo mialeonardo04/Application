@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import java.util.List;
 public class FragmentReport extends Fragment {
     protected int getIdTrans;
     protected String txtIdTrans;
+    protected Button show;
     Spinner getBulan;
     public FragmentReport() {
         // Required empty public constructor
@@ -43,11 +45,18 @@ public class FragmentReport extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_report, container, false);
-        /*Spinner spinner = v.findViewById(R.id.month);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.month, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);*/
+        show = v.findViewById(R.id.show);
+        /*show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentAllReport r = new FragmentAllReport();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.main_content,r);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });*/
+
         getBulan = v.findViewById(R.id.month);
         showSpinner();
         getBulan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
