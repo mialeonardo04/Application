@@ -80,7 +80,7 @@ public class DataHelper extends SQLiteOpenHelper {
         cursor = db.rawQuery(selectQ, null);
 
 
-        labels.add(new SpinnerObject("Select Month"));
+        labels.add(new SpinnerObject("Select Transaction Date below"));
         if (cursor.moveToFirst()) {
             do {
                 labels.add(new SpinnerObject(cursor.getInt(0), cursor.getString(2)));
