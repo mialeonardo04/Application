@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:width="20dp"
                 android:height="10dp"
-                android:text="save"
+                android:text="next"
                 android:textSize="8sp" />
 
         </LinearLayout>

@@ -69,7 +69,7 @@ public class FragmentAddItem extends Fragment {
                         Toast.makeText(getActivity(), "NULL DATA! NOT ALLOWED", Toast.LENGTH_LONG).show();
                     } else {
                         db.execSQL(query);
-                        Toast.makeText(getActivity(), "Data Inserted", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Don't Quit! Please, insert Item barcode Here!", Toast.LENGTH_LONG).show();
                         clearText();
                         pindahFragment();
                         db.close();
@@ -86,7 +86,7 @@ public class FragmentAddItem extends Fragment {
 
     private void pindahFragment() {
         FragmentInventory.fi.RefreshList();
-        Fragment back = new FragmentInventory();
+        Fragment back = new FragmentAddStock();
         FragmentManager manager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.main_content, back).addToBackStack(null).commit();

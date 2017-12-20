@@ -170,7 +170,7 @@ public class FragmentAddStock extends Fragment {
                     } else {
                         db.execSQL(sqlInsertStock);
                         clearText();
-                        Toast.makeText(getActivity(), "Data Inserted", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Data Inserted Successful", Toast.LENGTH_LONG).show();
                         pindahFragment();
                         db.close();
                     }
@@ -182,13 +182,13 @@ public class FragmentAddStock extends Fragment {
             }
         });
 
-        cancel = v.findViewById(R.id.cancel);
+        /*cancel = v.findViewById(R.id.cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 pindahFragment();
             }
-        });
+        });*/
         return v;
     }
 
