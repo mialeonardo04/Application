@@ -45,7 +45,7 @@ public class FragmentReport extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_report, container, false);
-        show = v.findViewById(R.id.show);
+        //show = v.findViewById(R.id.show);
         /*show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
