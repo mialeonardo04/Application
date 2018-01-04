@@ -84,8 +84,8 @@ public class FragmentTrans extends Fragment {
                 Integer sum = Integer.parseInt(tvHrg);
                 Integer hitung = cash - sum;
                 if (hitung < 0) {
-                    Toast.makeText(getActivity(), "uang yang dibayar harus lebih dari atau samadengan Rp." +
-                                    tvByr + ",-",
+                    Toast.makeText(getActivity(), "uang yang dibayar harus lebih dari Rp." +
+                                    tvHrg + ",-",
                             Toast.LENGTH_SHORT).show();
                 } else if (hitung >= 0) {
                     tvCashBack = String.valueOf(hitung);
