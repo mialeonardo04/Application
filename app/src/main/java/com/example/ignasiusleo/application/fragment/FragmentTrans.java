@@ -83,11 +83,16 @@ public class FragmentTrans extends Fragment {
                 Integer cash = Integer.parseInt(tvByr);
                 Integer sum = Integer.parseInt(tvHrg);
                 Integer hitung = cash - sum;
-                tvCashBack = String.valueOf(hitung);
-
-                tvKembali.setText(tvCashBack);
-                logTransaksi();
-                dialog.dismiss();
+                if (hitung < 0) {
+                    Toast.makeText(getActivity(), "uang yang dibayar harus lebih dari atau samadengan Rp." +
+                                    tvByr + ",-",
+                            Toast.LENGTH_SHORT).show();
+                } else if (hitung >= 0) {
+                    tvCashBack = String.valueOf(hitung);
+                    tvKembali.setText(tvCashBack);
+                    logTransaksi();
+                    dialog.dismiss();
+                }
                 //Toast.makeText(getActivity(),tvByr,Toast.LENGTH_SHORT).show();
             }
         });
