@@ -90,7 +90,7 @@ public class FragmentTrans extends Fragment {
                 } else if (hitung >= 0) {
                     tvCashBack = String.valueOf(hitung);
                     tvKembali.setText(tvCashBack);
-                    logTransaksi();
+                    logTransaksi(tvCashBack);
                     dialog.dismiss();
                 }
                 //Toast.makeText(getActivity(),tvByr,Toast.LENGTH_SHORT).show();
@@ -162,7 +162,7 @@ public class FragmentTrans extends Fragment {
         }
     }
 
-    public void logTransaksi() {
+    public void logTransaksi(String a) {
         SQLiteDatabase dbWrite = dbCenter.getWritableDatabase();
         SQLiteDatabase dbRead = dbCenter.getReadableDatabase();
 
@@ -181,7 +181,7 @@ public class FragmentTrans extends Fragment {
 
         dbWrite.execSQL(insertTransaksi);
         dbWrite.execSQL(insertPenjualan);
-        Toast.makeText(getActivity(), "Data Transaksi berhasil diinput", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Data Transaksi berhasil diinput, Uang Kembali Rp." + a + ",-", Toast.LENGTH_LONG).show();
     }
 
     @Override
