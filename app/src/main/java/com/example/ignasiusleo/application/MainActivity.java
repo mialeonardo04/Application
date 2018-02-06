@@ -54,7 +54,6 @@ public class MainActivity extends ActionBarActivity {
         listSlide.add(new ItemSlideMenu(R.mipmap.ic_launcher, "    Mo Kas"));
         listSlide.add(new ItemSlideMenu(R.drawable.button_transaction_selector,"    Transaksi"));
         listSlide.add(new ItemSlideMenu(R.drawable.button_inventory_selector,"    Data Barang"));
-        /*listSlide.add(new ItemSlideMenu(R.drawable.button_pegawai_selector,"    Pegawai"));*/
         listSlide.add(new ItemSlideMenu(R.drawable.button_report_selector,"    Laporan"));
 
         adapter = new SlidingMenuAdapter(this,listSlide);
