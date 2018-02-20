@@ -213,7 +213,7 @@ public class FragmentTrans extends Fragment {
                 Intent capture = new Intent(getActivity(), CaptureActivity.class);
                 CaptureActivityIntents.setPromptMessage(capture,"Scanning");
                 startActivityForResult(capture,0);
-                btnScan.setEnabled(false);
+                /*btnScan.setEnabled(false);*/
             }
         });
         submit.setOnClickListener(new View.OnClickListener() {
@@ -279,6 +279,7 @@ public class FragmentTrans extends Fragment {
                     newRow();
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
+
                 Toast.makeText(getContext(), "Scanning incompleted, please try again!", Toast.LENGTH_SHORT).show();
             }
         } else {}
