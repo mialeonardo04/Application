@@ -92,6 +92,7 @@ public class FragmentTrans extends Fragment {
                     logTransaksi(tvCashBack);
                     dialog.dismiss();
                 }
+
                 //Toast.makeText(getActivity(),tvByr,Toast.LENGTH_SHORT).show();
             }
         });
@@ -203,7 +204,18 @@ public class FragmentTrans extends Fragment {
         submit = v.findViewById(io.githubleonard04.ignasiusleo.application.R.id.bt_submit);
         hsl = v.findViewById(io.githubleonard04.ignasiusleo.application.R.id.bt_total);
         byr = v.findViewById(io.githubleonard04.ignasiusleo.application.R.id.bt_bayar);
+        hsl.setEnabled(false);
 
+        final Button btnScan = v.findViewById(io.githubleonard04.ignasiusleo.application.R.id.bt_scan);
+        btnScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent capture = new Intent(getActivity(), CaptureActivity.class);
+                CaptureActivityIntents.setPromptMessage(capture,"Scanning");
+                startActivityForResult(capture,0);
+                btnScan.setEnabled(false);
+            }
+        });
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -217,6 +229,8 @@ public class FragmentTrans extends Fragment {
                 submit.setEnabled(false);
                 scr4.setEnabled(false);
                 scr5.setEnabled(false);
+                hsl.setEnabled(true);
+                btnScan.setEnabled(true);
                 prosesPembelian();
             }
         });
@@ -231,6 +245,7 @@ public class FragmentTrans extends Fragment {
                 tvHrg = String.valueOf(cek);
                 txtTotal.setText("Rp. " + tvHrg + ",-");
                 byr.setEnabled(true);
+                btnScan.setEnabled(false);
             }
         });
 
@@ -243,15 +258,7 @@ public class FragmentTrans extends Fragment {
             }
         });
 
-        Button btnScan = v.findViewById(io.githubleonard04.ignasiusleo.application.R.id.bt_scan);
-        btnScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent capture = new Intent(getActivity(), CaptureActivity.class);
-                CaptureActivityIntents.setPromptMessage(capture,"Scanning");
-                startActivityForResult(capture,0);
-            }
-        });
+
 
         return v;
 
