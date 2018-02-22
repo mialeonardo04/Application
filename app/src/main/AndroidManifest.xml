@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ignasiusleo.application">
+    package="io.githubleonard04.ignasiusleo.application">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -9,16 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <uses-permission android:name="android.permission.CAMERA" />
-
-        <uses-feature android:name="android.hardware.camera.autofocus" />
-        <uses-feature android:name="android.hardware.camera" />
-
-        <uses-permission android:name="android.permission.WAKE_LOCK" />
-        <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
         <activity
-            android:name=".SplashScreen"
+            android:name="io.githubleonard04.ignasiusleo.application.SplashScreen"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -45,7 +44,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="io.githubleonard04.ignasiusleo.application.MainActivity"
             android:screenOrientation="landscape">
 
         </activity>
